@@ -3,6 +3,7 @@ package edu.virginia.cs2110.ghosthunter17;
 import android.app.Activity;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -40,6 +41,7 @@ public class MainActivity extends Activity {
 	protected void onDestroy() {
 		super.onDestroy();
 		bgm.release();
+		Log.v("MainActivity", "destroyed");
 	}
 	
 //	@Override

@@ -37,7 +37,7 @@ public class SplashScreen extends Activity {
 			@Override
 			public void run() {
 				Intent intent = new Intent();
-				intent.setClass(SplashScreen.this, MainActivity.class);
+				intent.setClass(SplashScreen.this, MainMenuActivity.class);
 				startActivity(intent);
 				ourSong.release();
 				finish();

@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">GhostHunter17</string>
+    <string name="app_name">Ghost Hunter</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_splash_screen">SplashScreen</string>
     <string name="desc">This is the Splash Screen.</string>
+    <string name="title_activity_main_menu">[Insert Title Here] </string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="new_game">New Game</string>
 
 </resources>

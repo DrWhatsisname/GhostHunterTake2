@@ -1,0 +1,22 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="@dimen/title_font_size"
+        android:layout_marginTop="@dimen/title_top_margin"
+        android:layout_marginBottom="@dimen/title_bottom_margin"
+        android:text="@string/title_activity_main_menu" />
+    
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:onClick="onNewGame"
+        android:text="@string/new_game" />
+
+</LinearLayout>

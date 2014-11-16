@@ -3,6 +3,7 @@ package edu.virginia.cs2110.ghosthunter17;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -27,6 +28,7 @@ public class GameView extends View {
 	}
 
 	private void init() {
+		Log.v("GameView", "initialize");
 		// Initialize things
 		lastTime = System.currentTimeMillis();
 
