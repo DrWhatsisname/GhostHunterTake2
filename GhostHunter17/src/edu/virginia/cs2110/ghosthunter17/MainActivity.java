@@ -11,14 +11,15 @@ public class MainActivity extends Activity {
 
 	private GameView game;
 	private MediaPlayer bgm;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		bgm = MediaPlayer.create(this, R.raw.castletheme);
 		bgm.setLooping(true);
 		bgm.start();
-		//Download new song and replace it with gameboybgm.setLooping(true);bgm.start();
+		// Download new song and replace it with
+		// gameboybgm.setLooping(true);bgm.start();
 		setContentView(R.layout.activity_main);
 		game = (GameView) findViewById(R.id.gameView);
 	}
@@ -36,25 +37,13 @@ public class MainActivity extends Activity {
 		game.onResume();
 		bgm.start();
 	}
-	
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		bgm.release();
 		Log.v("MainActivity", "destroyed");
 	}
-	
-//	@Override
-//	protected void onStop() {
-//		super.onStop();
-//		bgm.release();
-//	}
-//	
-//	@Override
-//	protected void onRestart() {
-//		super.onRestart();
-//		bgm = MediaPlayer.create(this, R.raw.castletheme);
-//	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -69,7 +58,8 @@ public class MainActivity extends Activity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
+		if (id == R.id.action_pause) {
+			game.onPause();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

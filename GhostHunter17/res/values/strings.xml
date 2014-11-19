@@ -7,8 +7,7 @@
     <string name="title_activity_splash_screen">SplashScreen</string>
     <string name="desc">This is the Splash Screen.</string>
     <string name="title_activity_main_menu">[Insert Title Here] </string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="new_game">New Game</string>
+    <string name="action_pause">Pause</string>
 
 </resources>

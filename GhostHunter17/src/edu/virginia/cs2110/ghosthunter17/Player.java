@@ -13,12 +13,13 @@ public class Player extends GameObject {
 	private PointF target;
 	private Paint p;
 	private int lives;
-	
+
 	public Player(World world, PointF pos) {
 		super(world, pos);
 		p = new Paint();
 		// Initialize collision bounds as a rectangle
-		this.colBounds = new Rect((int)pos.x,(int)pos.y,(int)(pos.x+100),(int)(pos.y + 100));
+		this.colBounds = new Rect((int) pos.x, (int) pos.y,
+				(int) (pos.x + 100), (int) (pos.y + 100));
 		p.setColor(0xffff0000);
 		target = null;
 		lives = 3;
@@ -29,18 +30,21 @@ public class Player extends GameObject {
 		if (target != null) {
 			PointF diff = new PointF(target.x - pos.x, target.y - pos.y);
 			float len = diff.length();
-			diff.x *= V/len;
-			diff.y *= V/len;
-			pos.x += diff.x * timePassed;
-			pos.y += diff.y * timePassed;
+			diff.x *= V / len;
+			diff.y *= V / len;
+			if (diff.length() > 1) {
+				pos.x += diff.x * timePassed;
+				pos.y += diff.y * timePassed;
+			}
 		}
-		
-		colBounds.set((int)this.pos.x, (int)this.pos.y, (int)(this.pos.x + 100) , (int)(this.pos.y + 100));
+
+		colBounds.set((int) this.pos.x, (int) this.pos.y,
+				(int) (this.pos.x + 100), (int) (this.pos.y + 100));
 	}
 
 	@Override
 	public void render(Canvas c) {
-		c.drawRect(pos.x-50, pos.y-50, pos.x + 50, pos.y + 50, p);
+		c.drawRect(pos.x - 50, pos.y - 50, pos.x + 50, pos.y + 50, p);
 
 	}
 
@@ -50,18 +54,18 @@ public class Player extends GameObject {
 
 	@Override
 	public void collide() {
-		if (lives == 3){
+		if (lives == 3) {
 			p.setColor(Color.YELLOW);
 		}
-		
-		else if (lives == 2){
+
+		else if (lives == 2) {
 			p.setColor(Color.RED);
 		}
-		
-		else{
+
+		else {
 			p.setColor(Color.BLACK);
 		}
-		
+
 		lives--;
 	}
 

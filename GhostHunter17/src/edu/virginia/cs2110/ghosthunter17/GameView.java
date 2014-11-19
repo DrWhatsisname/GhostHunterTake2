@@ -37,7 +37,7 @@ public class GameView extends View {
 	}
 
 	public void onPause() {
-
+		w.pause();
 	}
 
 	public void onResume() {
