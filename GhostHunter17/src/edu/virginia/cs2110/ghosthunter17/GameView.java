@@ -83,6 +83,7 @@ public class GameView extends View {
 
 		// Redraw the view (call onDraw again)
 		this.invalidate();
+	
 	}
 
 	private void render(Canvas c) {

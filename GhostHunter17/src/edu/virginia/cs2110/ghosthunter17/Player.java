@@ -1,8 +1,10 @@
 package edu.virginia.cs2110.ghosthunter17;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
+import android.graphics.Rect;
 
 public class Player extends GameObject {
 
@@ -10,12 +12,16 @@ public class Player extends GameObject {
 
 	private PointF target;
 	private Paint p;
-
+	private int lives;
+	
 	public Player(World world, PointF pos) {
 		super(world, pos);
 		p = new Paint();
+		// Initialize collision bounds as a rectangle
+		this.colBounds = new Rect((int)pos.x,(int)pos.y,(int)(pos.x+100),(int)(pos.y + 100));
 		p.setColor(0xffff0000);
 		target = null;
+		lives = 3;
 	}
 
 	@Override
@@ -28,6 +34,8 @@ public class Player extends GameObject {
 			pos.x += diff.x * timePassed;
 			pos.y += diff.y * timePassed;
 		}
+		
+		colBounds.set((int)this.pos.x, (int)this.pos.y, (int)(this.pos.x + 100) , (int)(this.pos.y + 100));
 	}
 
 	@Override
@@ -38,6 +46,23 @@ public class Player extends GameObject {
 
 	public void setTarget(PointF target) {
 		this.target = target;
+	}
+
+	@Override
+	public void collide() {
+		if (lives == 3){
+			p.setColor(Color.YELLOW);
+		}
+		
+		else if (lives == 2){
+			p.setColor(Color.RED);
+		}
+		
+		else{
+			p.setColor(Color.BLACK);
+		}
+		
+		lives--;
 	}
 
 }

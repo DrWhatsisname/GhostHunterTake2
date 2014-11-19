@@ -26,12 +26,14 @@ public class World {
 
 		this.addQueue = new ArrayList<GameObject>();
 		this.removeQueue = new ArrayList<GameObject>();
-		p = new Player(this, new PointF(0, 0));
+		p = new Player(this, new PointF(200, 200));
 		this.gameObjects.add(p);
 		this.gameObjects.add(new Circle(this, new PointF(0,0), new PointF(100,100), 50));
 	}
 
 	public void update(float timePassed) {
+		checkCollision();
+		
 		// Add/remove objects added/removed outside update
 		gameObjects.addAll(addQueue);
 		addQueue.clear();
@@ -46,6 +48,21 @@ public class World {
 		// Add/remove objects added/removed during update loop
 		gameObjects.addAll(addQueue);
 		gameObjects.removeAll(removeQueue);
+	}
+
+	public void checkCollision() {
+		for (GameObject g: gameObjects){
+			for (GameObject gTarget: gameObjects){
+				if (g != gTarget && g.getRect().intersect(gTarget.getRect())){
+					if (g instanceof Player && gTarget instanceof Circle){
+						g.collide();
+						removeQueue.add(gTarget);
+						//gTarget.collide();
+					}
+				}
+			}
+		}
+		
 	}
 
 	public void render(Canvas c) {
