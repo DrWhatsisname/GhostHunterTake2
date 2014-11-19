@@ -3,7 +3,7 @@ package edu.virginia.cs2110.ghosthunter17;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PointF;
-import android.graphics.Rect;
+import android.graphics.RectF;
 
 public class Circle extends GameObject {
 	public static int boundX, boundY;
@@ -19,7 +19,7 @@ public class Circle extends GameObject {
 		this.radius = radius;
 		
 		// Initialize collision bounds as a rectangle
-		this.colBounds = new Rect((int)pos.x,(int)pos.y,(int)(pos.x+size.x),(int)(pos.y + size.y));
+		this.colBounds = new RectF(pos.x,pos.y,pos.x+size.x,pos.y + size.y);
 		
 		// Initialize a paint object to red
 		this.p = new Paint();
@@ -48,7 +48,7 @@ public class Circle extends GameObject {
 			vel.y = -vel.y;
 		}
 		
-		colBounds.set((int)this.pos.x, (int)this.pos.y, (int)(this.pos.x + size.x) , (int)(this.pos.y + size.y));
+		colBounds.set(this.pos.x, this.pos.y, this.pos.x + size.x, this.pos.y + size.y);
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public class Circle extends GameObject {
 
 	@Override
 	public void collide() {
-		// TODO Auto-generated method stub
+		world.removeObject(this);
 		
 	}
 

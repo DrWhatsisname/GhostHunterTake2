@@ -52,18 +52,13 @@ public class World {
 
 	public void checkCollision() {
 		for (GameObject g: gameObjects){
-			for (GameObject gTarget: gameObjects){
-				if (g != gTarget && g.getRect().intersect(gTarget.getRect())){
-					if (g instanceof Player && gTarget instanceof Circle){
+				if (p != g && p.getRectF().intersect(g.getRectF())){
+						p.collide();
 						g.collide();
-						removeQueue.add(gTarget);
-						//gTarget.collide();
-					}
+						//removeQueue.add(g);
 				}
 			}
 		}
-		
-	}
 
 	public void render(Canvas c) {
 		// Render GameObjects
@@ -77,7 +72,7 @@ public class World {
 	}
 
 	public void removeObject(GameObject g) {
-		removeQueue.remove(g);
+		removeQueue.add(g);
 	}
 
 	public boolean onTouchEvent(MotionEvent event) {
