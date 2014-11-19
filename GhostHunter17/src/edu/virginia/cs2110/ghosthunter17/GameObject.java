@@ -2,13 +2,13 @@ package edu.virginia.cs2110.ghosthunter17;
 
 import android.graphics.Canvas;
 import android.graphics.PointF;
-import android.graphics.Rect;
+import android.graphics.RectF;
 
 public abstract class GameObject {
 
 	protected PointF pos;
 	protected World world;
-	protected Rect colBounds;
+	protected RectF colBounds;
 	
 	public GameObject(World world) {
 		this.pos = new PointF();
@@ -25,7 +25,7 @@ public abstract class GameObject {
 		this.pos = pos;
 	}
 	
-	public Rect getRect(){
+	public RectF getRectF(){
 		return colBounds;
 	}
 	

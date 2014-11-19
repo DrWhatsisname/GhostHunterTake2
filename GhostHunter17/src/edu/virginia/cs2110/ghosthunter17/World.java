@@ -45,40 +45,36 @@ public class World {
 	}
 
 	public void update(float timePassed) {
-		if (!paused){
+		if (!paused) {
 			// Add/remove objects added/removed outside update
 			gameObjects.addAll(addQueue);
 			addQueue.clear();
 			gameObjects.removeAll(removeQueue);
 			removeQueue.clear();
-	
+
 			// Update GameObjects
 			for (GameObject g : gameObjects) {
 				g.update(timePassed);
 			}
-			
+
 			checkCollision();
-	
+
 			// Add/remove objects added/removed during update loop
 			gameObjects.addAll(addQueue);
 			gameObjects.removeAll(removeQueue);
-		
+
 		}
 	}
 
 	public void checkCollision() {
+
 		for (GameObject g : gameObjects) {
-			for (GameObject gTarget : gameObjects) {
-				if (g != gTarget && g.getRect().intersect(gTarget.getRect())) {
-					if (g instanceof Player && gTarget instanceof Circle) {
-						g.collide();
-						removeQueue.add(gTarget);
-						// gTarget.collide();
-					}
-				}
+			if (p != g && p.getRectF().intersect(g.getRectF())) {
+				p.collide();
+				g.collide();
+				// removeQueue.add(g);
 			}
 		}
-
 	}
 
 	public void render(Canvas c) {
@@ -87,14 +83,15 @@ public class World {
 		for (GameObject g : gameObjects) {
 			g.render(c);
 		}
-		
+
 		if (paused) {
 			pausePaint.setColor(0x88111111);
 			c.drawRect(0, 0, c.getWidth(), c.getHeight(), pausePaint);
 			pausePaint.setColor(0xFFFFFFFF);
 			pausePaint.setTextSize(200);
 			pausePaint.setTextAlign(Align.CENTER);
-			c.drawText("Paused", c.getWidth()/2, c.getHeight()/2, pausePaint);
+			c.drawText("Paused", c.getWidth() / 2, c.getHeight() / 2,
+					pausePaint);
 		}
 	}
 
@@ -103,7 +100,7 @@ public class World {
 	}
 
 	public void removeObject(GameObject g) {
-		removeQueue.remove(g);
+		removeQueue.add(g);
 	}
 
 	public void pause() {
@@ -113,7 +110,7 @@ public class World {
 	public boolean onTouchEvent(MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_MOVE
 				|| event.getAction() == MotionEvent.ACTION_DOWN) {
-			if (paused){
+			if (paused) {
 				paused = false;
 				return true;
 			}

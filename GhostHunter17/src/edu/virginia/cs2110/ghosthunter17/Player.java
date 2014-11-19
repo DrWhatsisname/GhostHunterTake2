@@ -4,11 +4,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
-import android.graphics.Rect;
+import android.graphics.RectF;
 
 public class Player extends GameObject {
 
 	private static final float V = 200;
+	private static final float SIZE = 100;
 
 	private PointF target;
 	private Paint p;
@@ -18,8 +19,7 @@ public class Player extends GameObject {
 		super(world, pos);
 		p = new Paint();
 		// Initialize collision bounds as a rectangle
-		this.colBounds = new Rect((int) pos.x, (int) pos.y,
-				(int) (pos.x + 100), (int) (pos.y + 100));
+		this.colBounds = new RectF(pos.x-SIZE/2, pos.y-SIZE/2, (pos.x + SIZE/2), (pos.y + SIZE/2));
 		p.setColor(0xffff0000);
 		target = null;
 		lives = 3;
@@ -38,13 +38,14 @@ public class Player extends GameObject {
 			}
 		}
 
-		colBounds.set((int) this.pos.x, (int) this.pos.y,
-				(int) (this.pos.x + 100), (int) (this.pos.y + 100));
+		colBounds.set(this.pos.x-SIZE/2, this.pos.y-SIZE/2,
+				(this.pos.x + SIZE/2), (this.pos.y + SIZE/2));
 	}
 
 	@Override
 	public void render(Canvas c) {
-		c.drawRect(pos.x - 50, pos.y - 50, pos.x + 50, pos.y + 50, p);
+		c.drawRect(pos.x - SIZE / 2, pos.y - SIZE / 2, pos.x + SIZE / 2, pos.y
+				+ SIZE / 2, p);
 
 	}
 
