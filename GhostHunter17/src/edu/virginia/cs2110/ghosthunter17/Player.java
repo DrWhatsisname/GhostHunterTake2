@@ -9,6 +9,7 @@ import android.graphics.RectF;
 public class Player extends GameObject {
 
 	private static final float V = 200;
+	private static final float size = 100;
 
 	private PointF target;
 	private Paint p;
@@ -18,7 +19,7 @@ public class Player extends GameObject {
 		super(world, pos);
 		p = new Paint();
 		// Initialize collision bounds as a rectangle
-		this.colBounds = new RectF(pos.x-50,pos.y-50,pos.x+50,pos.y + 50);
+		this.colBounds = new RectF(pos.x-size/2,pos.y-size/2,pos.x+size/2,pos.y + size/2);
 		p.setColor(0xffff0000);
 		target = null;
 		lives = 3;
@@ -35,12 +36,12 @@ public class Player extends GameObject {
 			pos.y += diff.y * timePassed;
 		}
 		
-		colBounds.set(this.pos.x-50, this.pos.y-50, this.pos.x + 50 , this.pos.y + 50);
+		colBounds.set(this.pos.x-size/2, this.pos.y-size/2, this.pos.x + size/2 , this.pos.y + size/2);
 	}
 
 	@Override
 	public void render(Canvas c) {
-		c.drawRect(pos.x-50, pos.y-50, pos.x + 50, pos.y + 50, p);
+		c.drawRect(pos.x-size/2, pos.y-size/2, pos.x + size/2, pos.y + size/2, p);
 
 	}
 
@@ -60,6 +61,7 @@ public class Player extends GameObject {
 		
 		else{
 			p.setColor(Color.BLACK);
+			//GG YOU DIE
 		}
 		
 		lives--;
