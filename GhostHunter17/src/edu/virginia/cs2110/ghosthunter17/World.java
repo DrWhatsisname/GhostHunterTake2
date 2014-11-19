@@ -35,13 +35,22 @@ public class World {
 
 		paused = false;
 		pausePaint = new Paint();
-		pausePaint.setColor(0x10111111);
+		pausePaint.setTextSize(200);
+		pausePaint.setTextAlign(Align.CENTER);
 
 		p = new Player(this, new PointF(200, 200));
 		this.gameObjects.add(p);
 
 		this.gameObjects.add(new Circle(this, new PointF(0, 0), new PointF(100,
 				100), 50));
+
+		for (int i = 0; i < 5; i++) {
+			this.gameObjects.add(new Box(this,
+					new PointF((float) Math.random() * 1000, (float) Math
+							.random() * 1000), new PointF(
+							(float) Math.random() * 1000,
+							(float) Math.random() * 1000)));
+		}
 	}
 
 	public void update(float timePassed) {
@@ -67,12 +76,14 @@ public class World {
 	}
 
 	public void checkCollision() {
-
-		for (GameObject g : gameObjects) {
-			if (p != g && p.getRectF().intersect(g.getRectF())) {
-				p.collide();
-				g.collide();
-				// removeQueue.add(g);
+		for (int i = 0; i < gameObjects.size(); i++) {
+			GameObject g1 = gameObjects.get(i);
+			for (int j = i + 1; j < gameObjects.size(); j++) {
+				GameObject g2 = gameObjects.get(j);
+				if (g1.getColBounds().intersect(g2.getColBounds())) {
+					g1.collide(g2);
+					g2.collide(g1);
+				}
 			}
 		}
 	}
@@ -88,8 +99,6 @@ public class World {
 			pausePaint.setColor(0x88111111);
 			c.drawRect(0, 0, c.getWidth(), c.getHeight(), pausePaint);
 			pausePaint.setColor(0xFFFFFFFF);
-			pausePaint.setTextSize(200);
-			pausePaint.setTextAlign(Align.CENTER);
 			c.drawText("Paused", c.getWidth() / 2, c.getHeight() / 2,
 					pausePaint);
 		}
@@ -118,9 +127,6 @@ public class World {
 			PointerCoords coord = new PointerCoords();
 			event.getPointerCoords(index, coord);
 			p.setTarget(new PointF(coord.x, coord.y));
-			// addObject(new Box(this, new PointF(coord.x, coord.y), new PointF(
-			// 500 * (float) Math.random() - 250,
-			// 500 * (float) Math.random() - 250)));
 			return true;
 		} else if (event.getAction() == MotionEvent.ACTION_UP) {
 			p.setTarget(null);

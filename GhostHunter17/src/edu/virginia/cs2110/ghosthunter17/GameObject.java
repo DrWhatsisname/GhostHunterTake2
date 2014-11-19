@@ -8,7 +8,6 @@ public abstract class GameObject {
 
 	protected PointF pos;
 	protected World world;
-	protected RectF colBounds;
 	
 	public GameObject(World world) {
 		this.pos = new PointF();
@@ -25,13 +24,11 @@ public abstract class GameObject {
 		this.pos = pos;
 	}
 	
-	public RectF getRectF(){
-		return colBounds;
-	}
+	public abstract RectF getColBounds();
 	
 	public abstract void update(float timePassed);
 
 	public abstract void render(Canvas c);
 	
-	public abstract void collide();
+	public abstract void collide(GameObject g);
 }

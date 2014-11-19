@@ -10,18 +10,16 @@ public class Box extends GameObject {
 
 	private PointF vel, size;
 	private Paint p;
-	
+
 	public Box(World w, PointF pos, PointF vel) {
 		super(w, pos);
 		this.vel = vel;
 		this.size = new PointF(100, 100);
-		
-		// Initialize collision bounds as a rectangle
-		this.colBounds = new RectF(pos.x,pos.y,pos.x+size.x,pos.y + size.y);
+
 		// Initialize a paint object to red
 		this.p = new Paint();
 		p.setColor(0xffff0000);
-		
+
 	}
 
 	@Override
@@ -55,9 +53,21 @@ public class Box extends GameObject {
 	}
 
 	@Override
-	public void collide() {
-		// TODO Auto-generated method stub
-		
+	public void collide(GameObject g) {
+		//Set color to a random color if collide with another box
+		if (g instanceof Box) {
+			p.setARGB(255, (int) (Math.random() * 255),
+					(int) (Math.random() * 255), (int) (Math.random() * 255));
+		}
+		//Reset to red if collide with a circle or the player
+		else if (g instanceof Circle || g instanceof Player){
+			p.setColor(0xffff0000);
+		}
+	}
+
+	@Override
+	public RectF getColBounds() {
+		return new RectF(pos.x, pos.y, pos.x + size.x, pos.y + size.y);
 	}
 
 }
