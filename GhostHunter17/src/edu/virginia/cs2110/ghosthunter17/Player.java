@@ -18,7 +18,7 @@ public class Player extends GameObject {
 		super(world, pos);
 		p = new Paint();
 		// Initialize collision bounds as a rectangle
-		this.colBounds = new Rect((int)pos.x,(int)pos.y,(int)(pos.x+100),(int)(pos.y + 100));
+		this.colBounds = new Rect((int)pos.x-50,(int)pos.y-50,(int)(pos.x+50),(int)(pos.y + 50));
 		p.setColor(0xffff0000);
 		target = null;
 		lives = 3;
@@ -35,7 +35,7 @@ public class Player extends GameObject {
 			pos.y += diff.y * timePassed;
 		}
 		
-		colBounds.set((int)this.pos.x, (int)this.pos.y, (int)(this.pos.x + 100) , (int)(this.pos.y + 100));
+		colBounds.set((int)this.pos.x-50, (int)this.pos.y-50, (int)(this.pos.x + 50) , (int)(this.pos.y + 50));
 	}
 
 	@Override
