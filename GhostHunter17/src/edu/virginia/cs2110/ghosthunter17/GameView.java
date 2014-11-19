@@ -74,7 +74,7 @@ public class GameView extends View {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-
+		
 		// Update the state of the game
 		update();
 
