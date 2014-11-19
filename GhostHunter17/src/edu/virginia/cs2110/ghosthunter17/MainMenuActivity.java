@@ -21,5 +21,5 @@ public class MainMenuActivity extends Activity {
 		startActivity(intent);
 	}
 
-	
+	//yo
 }
