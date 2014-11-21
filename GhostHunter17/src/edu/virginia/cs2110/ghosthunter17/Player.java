@@ -29,44 +29,11 @@ public class Player extends GameObject {
 	@Override
 	public void update(float timePassed) {
 		if (target != null) {
-			PointF dist = new PointF(target.x - pos.x, target.y - pos.y);
-			
-			//Rotate towards target
-			float targetRot = (float) (Math.atan2(dist.y, dist.x) * 180 / Math.PI);
-			float frameRot = targetRot - rot;
-			if (Math.abs(targetRot + 360 - rot) < Math.abs(frameRot)) {
-				frameRot = targetRot + 360 - rot;
-			} else if (Math.abs(targetRot - 360 - rot) < Math.abs(frameRot)) {
-				frameRot = targetRot - 360 - rot;
-			}
-			
-			if (frameRot!=0){
-				float normalFrameRot = frameRot / Math.abs(frameRot);
-				normalFrameRot *= ROT_V * timePassed;
-	
-				if (Math.abs(frameRot) < Math.abs(normalFrameRot)) {
-					rot += frameRot;
-				} else {
-					rot += normalFrameRot;
-				}
-				rot%=360;
-			}
+			rot = rotateTo(
+					(float) (Math.atan2(target.y - pos.y, target.x - pos.x) * 180 / Math.PI),
+					rot, timePassed, ROT_V);
+			moveTo(target, timePassed, V);
 
-			//Move towards target
-			float len = dist.length();
-			float scale = V / len * timePassed;
-			PointF diff = new PointF(dist.x * scale, dist.y * scale);
-			// Move towards the target if it is further than the player can
-			// travel in a frame
-			if (diff.length() < len) {
-				pos.x += diff.x;
-				pos.y += diff.y;
-			}
-			// Otherwise move to the target
-			else {
-				pos.x += dist.x;
-				pos.y += dist.y;
-			}
 		}
 	}
 
