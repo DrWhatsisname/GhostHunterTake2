@@ -38,7 +38,7 @@ public class World {
 		pausePaint.setTextSize(200);
 		pausePaint.setTextAlign(Align.CENTER);
 
-		p = new Player(this, new PointF(200, 200));
+		p = new Player(this, new PointF(500, 500));
 		this.gameObjects.add(p);
 
 		this.gameObjects.add(new Circle(this, new PointF(0, 0), new PointF(100,

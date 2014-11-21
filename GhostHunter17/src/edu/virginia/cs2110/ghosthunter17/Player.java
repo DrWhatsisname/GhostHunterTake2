@@ -8,10 +8,12 @@ import android.graphics.RectF;
 
 public class Player extends GameObject {
 
-	private static final float V = 2000;
-	private static final float SIZE = 150;
+	private static final float V = 500; // Pixels per second
+	private static final float ROT_V = 180; // Degrees per second
+	private static final float SIZE = 150; // Pixels
 
 	private PointF target;
+	private float rot;
 	private Paint p;
 	private int lives;
 
@@ -28,6 +30,29 @@ public class Player extends GameObject {
 	public void update(float timePassed) {
 		if (target != null) {
 			PointF dist = new PointF(target.x - pos.x, target.y - pos.y);
+			
+			//Rotate towards target
+			float targetRot = (float) (Math.atan2(dist.y, dist.x) * 180 / Math.PI);
+			float frameRot = targetRot - rot;
+			if (Math.abs(targetRot + 360 - rot) < Math.abs(frameRot)) {
+				frameRot = targetRot + 360 - rot;
+			} else if (Math.abs(targetRot - 360 - rot) < Math.abs(frameRot)) {
+				frameRot = targetRot - 360 - rot;
+			}
+			
+			if (frameRot!=0){
+				float normalFrameRot = frameRot / Math.abs(frameRot);
+				normalFrameRot *= ROT_V * timePassed;
+	
+				if (Math.abs(frameRot) < Math.abs(normalFrameRot)) {
+					rot += frameRot;
+				} else {
+					rot += normalFrameRot;
+				}
+				rot%=360;
+			}
+
+			//Move towards target
 			float len = dist.length();
 			float scale = V / len * timePassed;
 			PointF diff = new PointF(dist.x * scale, dist.y * scale);
@@ -47,9 +72,12 @@ public class Player extends GameObject {
 
 	@Override
 	public void render(Canvas c) {
+		c.save();
+
+		c.rotate(rot, pos.x, pos.y);
 		c.drawRect(pos.x - SIZE / 2, pos.y - SIZE / 2, pos.x + SIZE / 2, pos.y
 				+ SIZE / 2, p);
-
+		c.restore();
 	}
 
 	public void setTarget(PointF target) {
