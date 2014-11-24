@@ -12,6 +12,8 @@ public class Circle extends GameObject {
 	private Paint p;
 	private float radius;
 
+	
+	//ignore this comment
 	public Circle(World w, PointF pos, PointF vel, float radius) {
 		super(w, pos);
 		this.vel = vel;
