@@ -52,7 +52,7 @@ public class Player extends GameObject {
 	}
 
 	@Override
-	public void collide(GameObject g) {
+	public void collide(GameObject g, Direction dir) {
 		if (g instanceof Circle) {
 			if (lives == 3) {
 				p.setColor(Color.YELLOW);

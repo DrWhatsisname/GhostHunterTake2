@@ -6,6 +6,8 @@ import android.graphics.RectF;
 
 public abstract class GameObject {
 
+	public enum Direction{NORTH,EAST,SOUTH,WEST}
+	
 	protected PointF pos;
 	protected World world;
 
@@ -30,7 +32,7 @@ public abstract class GameObject {
 
 	public abstract void render(Canvas c);
 
-	public abstract void collide(GameObject g);
+	public abstract void collide(GameObject g, Direction dir);
 
 	protected void moveTo(PointF target, float timePassed, float velocity) {
 		PointF dist = new PointF(target.x - pos.x, target.y - pos.y);

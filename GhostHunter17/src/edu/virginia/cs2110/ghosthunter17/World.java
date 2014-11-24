@@ -3,10 +3,12 @@ package edu.virginia.cs2110.ghosthunter17;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import edu.virginia.cs2110.ghosthunter17.GameObject.Direction;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.PointF;
+import android.graphics.RectF;
 import android.view.MotionEvent;
 import android.view.MotionEvent.PointerCoords;
 
@@ -80,9 +82,34 @@ public class World {
 			GameObject g1 = gameObjects.get(i);
 			for (int j = i + 1; j < gameObjects.size(); j++) {
 				GameObject g2 = gameObjects.get(j);
-				if (g1.getColBounds().intersect(g2.getColBounds())) {
-					g1.collide(g2);
-					g2.collide(g1);
+				RectF r1 = g1.getColBounds();
+				RectF r2 = g2.getColBounds();
+				if (r1.intersect(r2)) {
+					float top = Math.abs(r2.bottom - r1.top);
+					float bot = Math.abs(r2.top - r1.bottom);
+					float left = Math.abs(r2.right - r1.left);
+					float right = Math.abs(r2.left - r1.right);
+
+					Direction d1 = Direction.NORTH, d2 = Direction.SOUTH;
+					float min = top;
+
+					if (bot < min) {
+						min = bot;
+						d1 = Direction.SOUTH;
+						d2 = Direction.NORTH;
+					}
+					if (left < min) {
+						min = left;
+						d1 = Direction.WEST;
+						d2 = Direction.EAST;
+					}
+					if (right < min) {
+						d1 = Direction.EAST;
+						d2 = Direction.WEST;
+					}
+
+					g1.collide(g2, d1);
+					g2.collide(g1, d2);
 				}
 			}
 		}

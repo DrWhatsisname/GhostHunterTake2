@@ -53,7 +53,7 @@ public class Box extends GameObject {
 	}
 
 	@Override
-	public void collide(GameObject g) {
+	public void collide(GameObject g, Direction dir) {
 		//Set color to a random color if collide with another box
 		if (g instanceof Box) {
 			p.setARGB(255, (int) (Math.random() * 255),
