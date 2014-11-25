@@ -2,7 +2,6 @@ package edu.virginia.cs2110.ghosthunter17;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.PointF;
 import android.graphics.RectF;
 
 public class Wall extends GameObject {
@@ -22,7 +21,7 @@ public class Wall extends GameObject {
 
 	@Override
 	public RectF getColBounds() {
-		return bounds;
+		return new RectF(bounds);
 	}
 
 	@Override
@@ -37,7 +36,18 @@ public class Wall extends GameObject {
 
 	@Override
 	public void collide(GameObject g, Direction dir) {
-		
+		if (dir == Direction.NORTH) {
+			g.pos.y -= g.getColBounds().bottom - this.bounds.top;
+		}
+		else if (dir == Direction.SOUTH) {
+			g.pos.y += this.bounds.bottom - g.getColBounds().top;
+		}
+		else if (dir == Direction.EAST) {
+			g.pos.x += this.bounds.right - g.getColBounds().left;
+		}
+		else {
+			g.pos.x -= g.getColBounds().right - this.bounds.left;
+		}
 	}
 
 }

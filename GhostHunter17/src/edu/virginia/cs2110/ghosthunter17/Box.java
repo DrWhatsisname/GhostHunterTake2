@@ -54,14 +54,23 @@ public class Box extends GameObject {
 
 	@Override
 	public void collide(GameObject g, Direction dir) {
-		//Set color to a random color if collide with another box
+		// Set color to a random color if collide with another box
 		if (g instanceof Box) {
 			p.setARGB(255, (int) (Math.random() * 255),
 					(int) (Math.random() * 255), (int) (Math.random() * 255));
 		}
-		//Reset to red if collide with a circle or the player
-		else if (g instanceof Circle || g instanceof Player){
+		// Reset to red if collide with a circle or the player
+		else if (g instanceof Circle || g instanceof Player) {
 			p.setColor(0xffff0000);
+		}
+
+		else if (g instanceof Wall) {
+			if (dir == Direction.NORTH || dir == Direction.SOUTH) {
+				vel.y = -vel.y;
+			}
+			else {
+				vel.x = -vel.x;
+			}
 		}
 	}
 

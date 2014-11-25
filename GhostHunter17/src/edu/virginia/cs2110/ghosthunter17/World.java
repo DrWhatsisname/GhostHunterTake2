@@ -46,6 +46,8 @@ public class World {
 		this.gameObjects.add(new Circle(this, new PointF(0, 0), new PointF(100,
 				100), 50));
 
+		this.gameObjects.add(new Wall(this, new RectF(400,400,500,800)));
+		
 		for (int i = 0; i < 5; i++) {
 			this.gameObjects.add(new Box(this,
 					new PointF((float) Math.random() * 1000, (float) Math

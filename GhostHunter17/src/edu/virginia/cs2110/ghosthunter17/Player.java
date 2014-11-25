@@ -29,9 +29,11 @@ public class Player extends GameObject {
 	@Override
 	public void update(float timePassed) {
 		if (target != null) {
-			rot = rotateTo(
-					(float) (Math.atan2(target.y - pos.y, target.x - pos.x) * 180 / Math.PI),
-					rot, timePassed, ROT_V);
+			if (!target.equals(pos)) {
+				rot = rotateTo(
+						(float) (Math.atan2(target.y - pos.y, target.x - pos.x) * 180 / Math.PI),
+						rot, timePassed, ROT_V);
+			}
 			moveTo(target, timePassed, V);
 
 		}
