@@ -77,5 +77,9 @@ public class Player extends GameObject {
 		return new RectF(this.pos.x - SIZE / 2, this.pos.y - SIZE / 2,
 				(this.pos.x + SIZE / 2), (this.pos.y + SIZE / 2));
 	}
+	
+	public float getRot() {
+		return rot;
+	}
 
 }

@@ -1,7 +1,11 @@
 package edu.virginia.cs2110.ghosthunter17;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.PointF;
 import android.graphics.RectF;
 
 public class Wall extends GameObject {
@@ -48,6 +52,22 @@ public class Wall extends GameObject {
 		else {
 			g.pos.x -= g.getColBounds().right - this.bounds.left;
 		}
+	}
+	
+	public List<Segment> getEdges() {
+		ArrayList<Segment> result = new ArrayList<Segment>();
+		PointF p1,p2,p3,p4;
+		
+		p1 = new PointF( bounds.left, bounds.top);
+		p2 = new PointF(bounds.right, bounds.top);
+		p3 = new PointF(bounds.right, bounds.bottom);
+		p4 = new PointF(bounds.left, bounds.bottom);
+		
+		result.add(new Segment(p1,p2));
+		result.add(new Segment(p2,p3));
+		result.add(new Segment(p3,p4));
+		result.add(new Segment(p4,p1));
+		return result;
 	}
 
 }
