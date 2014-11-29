@@ -2,17 +2,11 @@ package edu.virginia.cs2110.ghosthunter17;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
 import edu.virginia.cs2110.ghosthunter17.GameObject.Direction;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
-import android.graphics.Path.FillType;
 import android.graphics.Path;
-import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.view.MotionEvent;
@@ -233,72 +227,6 @@ public class World {
 			c.drawColor(SHADOW_COLOR);
 			c.restore();
 		}
-		
-		
-		
-//		// Points to do a raycast to
-//		ArrayList<PointF> castPoints = new ArrayList<PointF>();
-//
-//		// Points on the edges of the light
-//		castPoints.add(new PointF(p.pos.x + 10000 * (float) Math.cos((p.getRot() + LIGHT_WIDTH/2) * Math.PI / 180),
-//				p.pos.y + 10000	* (float) Math.sin((p.getRot() + LIGHT_WIDTH/2) * Math.PI	/ 180)));
-//		castPoints.add(new PointF(p.pos.x + 10000 * (float) Math.cos((p.getRot() - LIGHT_WIDTH/2) * Math.PI / 180),
-//				p.pos.y	+ 10000 * (float) Math.sin((p.getRot() - LIGHT_WIDTH/2) * Math.PI / 180)));
-//		
-//		// Add all the end points inside the width of the light
-//		for (Segment s : walls) {
-//			float ang1 = (float) (Math
-//					.atan2(s.p1.y - p.pos.y, s.p1.x - p.pos.x) * 180 / Math.PI);
-//			float ang2 = (float) (Math
-//					.atan2(s.p2.y - p.pos.y, s.p2.x - p.pos.x) * 180 / Math.PI);
-//			float angleDiff = (p.getRot() - ang1 + 180) % 360 - 180;
-//			if (angleDiff <= LIGHT_WIDTH / 2 && angleDiff >= -LIGHT_WIDTH / 2) {
-//				castPoints.add(s.p1);
-//			}
-//
-//			angleDiff = (p.getRot() - ang2 + 180) % 360 - 180;
-//			if (angleDiff <= LIGHT_WIDTH / 2 && angleDiff >= -LIGHT_WIDTH / 2) {
-//				castPoints.add(s.p2);
-//			}
-//		}
-//
-//		// Sort by angle
-//		Collections.sort(castPoints, new Comparator<PointF>() {
-//
-//			@Override
-//			public int compare(PointF lhs, PointF rhs) {
-//				double det = (lhs.x - p.pos.x) * (rhs.y - p.pos.y) - (lhs.y - p.pos.y) * (rhs.x - p.pos.x);
-//				if (det > 0) {
-//					return 1;
-//				}
-//				else if (det < 0) { 
-//					return -1;
-//				}
-//				else { 
-//					return 0;
-//				}
-//			}
-//		});
-//		
-//		
-//		
-//		List<PointF> dPath = new ArrayList<PointF>();
-//		Path path = new Path();
-//		path.moveTo(p.pos.x, p.pos.y);
-//		pausePaint.setColor(0xffff0000);
-//		pausePaint.setStrokeWidth(10);
-//		for (PointF cast : castPoints) {
-//			c.drawLine(p.pos.x, p.pos.y, cast.x, cast.y, pausePaint);
-//			PointF inter = Segment.raycast(new Segment(p.pos, cast), walls);
-//			path.lineTo(inter.x, inter.y);
-//			dPath.add(inter);
-////			if (PointF.length(cast.x - p.pos.x, cast.y - p.pos.y) < PointF
-////					.length(inter.x - p.pos.x, inter.y - p.pos.y)) {
-////				path.lineTo(cast.x, cast.y);
-////			}
-//		}
-//		path.close();
-//		c.clipPath(path);
 
 	}
 
