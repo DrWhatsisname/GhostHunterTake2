@@ -6,6 +6,7 @@ import java.util.Collection;
 import edu.virginia.cs2110.ghosthunter17.GameObject.Direction;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Canvas.VertexMode;
 import android.graphics.Paint.Align;
 import android.graphics.Path;
 import android.graphics.PointF;
@@ -180,6 +181,11 @@ public class World {
 		path.close();
 		path.toggleInverseFillType();
 		
+//		int[] colorArray = new int[7];
+//		for (int i = 0; i < colorArray.length; i++){
+//			colorArray[i] = SHADOW_COLOR;
+//		}
+		
 		c.save();
 		c.clipPath(path);
 		c.drawColor(SHADOW_COLOR);
@@ -222,7 +228,16 @@ public class World {
 				path.lineTo(lightPts.get(j).x, lightPts.get(j).y);
 			}
 			path.close();
-		
+			
+//			float[] vertArray = new float[lightPts.size()*2];
+//			for (int j = 0; j < lightPts.size(); j++) {
+//				vertArray[j*2] = lightPts.get(j).x;
+//				vertArray[j*2+1] = lightPts.get(j).y;
+//			}
+//			
+//			pausePaint.setColor(SHADOW_COLOR);
+//			c.drawVertices(VertexMode.TRIANGLE_FAN, lightPts.size()*2, vertArray, 0, null, 0, colorArray, 0, null, 0, 0, pausePaint);
+			
 			c.save();
 			c.clipPath(path);
 			c.drawColor(SHADOW_COLOR);
