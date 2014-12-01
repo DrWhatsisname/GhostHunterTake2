@@ -132,9 +132,8 @@ public class World {
 			g.render(c);
 		}
 		
+		doLighting(c);
 		showKills(c);
-		
-//		doLighting(c);
 
 		if (paused) {
 			pausePaint.setColor(0x88111111);
