@@ -2,19 +2,16 @@ package edu.virginia.cs2110.ghosthunter17;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 import edu.virginia.cs2110.ghosthunter17.GameObject.Direction;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
-import android.graphics.Path.FillType;
 import android.graphics.Path;
-import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.graphics.Region;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.MotionEvent.PointerCoords;
 
@@ -28,8 +25,10 @@ public class World {
 	private ArrayList<GameObject> removeQueue;
 
 	private Player p;
+	private int kills;
 	private boolean paused;
 	private Paint pausePaint;
+	private Paint screenText;
 
 	public World() {
 		this(new ArrayList<GameObject>());
@@ -48,15 +47,27 @@ public class World {
 		pausePaint = new Paint();
 		pausePaint.setTextSize(200);
 		pausePaint.setTextAlign(Align.CENTER);
+		
+		screenText = new Paint();
+		screenText.setTextSize(50);
 
+		kills = 0;
 		p = new Player(this, new PointF(500, 500));
 		this.gameObjects.add(p);
 
+<<<<<<< HEAD
 //		this.gameObjects.add(new Circle(this, new PointF(0, 0), new PointF(100,
 //				100), 50));
 
+=======
+		this.gameObjects.add(new Circle(this, new PointF(0, 0), new PointF(100,
+				100), 50));
+		
+>>>>>>> origin/master
 		this.gameObjects.add(new Wall(this, new RectF(400, 400, 500, 800)));
-
+		
+		//Remove this line later
+		testCode();
 		for (int i = 0; i < 5; i++) {
 			this.gameObjects.add(new Box(this,
 					new PointF((float) Math.random() * 1000, (float) Math
@@ -67,6 +78,7 @@ public class World {
 	}
 
 	public void update(float timePassed) {
+
 		if (!paused) {
 			// Add/remove objects added/removed outside update
 			gameObjects.addAll(addQueue);
@@ -80,11 +92,6 @@ public class World {
 			}
 
 			checkCollision();
-
-			// Add/remove objects added/removed during update loop
-			gameObjects.addAll(addQueue);
-			gameObjects.removeAll(removeQueue);
-
 		}
 	}
 
@@ -134,6 +141,8 @@ public class World {
 		}
 		
 		doLighting(c);
+		showKills(c);
+		showBombs(c);
 
 		if (paused) {
 			pausePaint.setColor(0x88111111);
@@ -191,6 +200,16 @@ public class World {
 		c.restore();
 		path.toggleInverseFillType();
 		
+		ArrayList<GameObject> inLight = new ArrayList<GameObject>();
+		Region r = new Region();
+		Region screen = new Region((int)bounds.left, (int)bounds.top, (int)bounds.right, (int)bounds.bottom);
+		r.setPath(path, screen);
+		for (GameObject g : gameObjects) { 
+			if (r.contains((int)g.pos.x, (int)g.pos.y)) {
+				inLight.add(g);
+			}
+		}
+		
 		
 		for (int i = 0; i < walls.size(); i++) {
 			lightPts.clear();
@@ -227,78 +246,24 @@ public class World {
 				path.lineTo(lightPts.get(j).x, lightPts.get(j).y);
 			}
 			path.close();
-			
+		
 			c.save();
 			c.clipPath(path);
 			c.drawColor(SHADOW_COLOR);
 			c.restore();
+			
+			r.setPath(path, screen);
+			for (int g = inLight.size()-1; g >= 0; g--) {
+				if (r.contains((int)inLight.get(g).pos.x, (int)inLight.get(g).pos.y)) {
+					inLight.remove(g);
+				}
+			}
 		}
 		
+		for (GameObject g : inLight) {
+			g.inLight();
+		}
 		
-		
-//		// Points to do a raycast to
-//		ArrayList<PointF> castPoints = new ArrayList<PointF>();
-//
-//		// Points on the edges of the light
-//		castPoints.add(new PointF(p.pos.x + 10000 * (float) Math.cos((p.getRot() + LIGHT_WIDTH/2) * Math.PI / 180),
-//				p.pos.y + 10000	* (float) Math.sin((p.getRot() + LIGHT_WIDTH/2) * Math.PI	/ 180)));
-//		castPoints.add(new PointF(p.pos.x + 10000 * (float) Math.cos((p.getRot() - LIGHT_WIDTH/2) * Math.PI / 180),
-//				p.pos.y	+ 10000 * (float) Math.sin((p.getRot() - LIGHT_WIDTH/2) * Math.PI / 180)));
-//		
-//		// Add all the end points inside the width of the light
-//		for (Segment s : walls) {
-//			float ang1 = (float) (Math
-//					.atan2(s.p1.y - p.pos.y, s.p1.x - p.pos.x) * 180 / Math.PI);
-//			float ang2 = (float) (Math
-//					.atan2(s.p2.y - p.pos.y, s.p2.x - p.pos.x) * 180 / Math.PI);
-//			float angleDiff = (p.getRot() - ang1 + 180) % 360 - 180;
-//			if (angleDiff <= LIGHT_WIDTH / 2 && angleDiff >= -LIGHT_WIDTH / 2) {
-//				castPoints.add(s.p1);
-//			}
-//
-//			angleDiff = (p.getRot() - ang2 + 180) % 360 - 180;
-//			if (angleDiff <= LIGHT_WIDTH / 2 && angleDiff >= -LIGHT_WIDTH / 2) {
-//				castPoints.add(s.p2);
-//			}
-//		}
-//
-//		// Sort by angle
-//		Collections.sort(castPoints, new Comparator<PointF>() {
-//
-//			@Override
-//			public int compare(PointF lhs, PointF rhs) {
-//				double det = (lhs.x - p.pos.x) * (rhs.y - p.pos.y) - (lhs.y - p.pos.y) * (rhs.x - p.pos.x);
-//				if (det > 0) {
-//					return 1;
-//				}
-//				else if (det < 0) { 
-//					return -1;
-//				}
-//				else { 
-//					return 0;
-//				}
-//			}
-//		});
-//		
-//		
-//		
-//		List<PointF> dPath = new ArrayList<PointF>();
-//		Path path = new Path();
-//		path.moveTo(p.pos.x, p.pos.y);
-//		pausePaint.setColor(0xffff0000);
-//		pausePaint.setStrokeWidth(10);
-//		for (PointF cast : castPoints) {
-//			c.drawLine(p.pos.x, p.pos.y, cast.x, cast.y, pausePaint);
-//			PointF inter = Segment.raycast(new Segment(p.pos, cast), walls);
-//			path.lineTo(inter.x, inter.y);
-//			dPath.add(inter);
-////			if (PointF.length(cast.x - p.pos.x, cast.y - p.pos.y) < PointF
-////					.length(inter.x - p.pos.x, inter.y - p.pos.y)) {
-////				path.lineTo(cast.x, cast.y);
-////			}
-//		}
-//		path.close();
-//		c.clipPath(path);
 
 	}
 
@@ -331,6 +296,38 @@ public class World {
 			return true;
 		} else
 			return false;
+	}
+	
+	public void addKill(){
+		kills++;
+		Log.d("WORLD", "Kills: " +kills);
+	}
+	
+	public void showKills(Canvas c){
+		String text = "Kills: " + kills;
+		c.drawText(text, c.getWidth()-300, 50, screenText);
+	}
+	
+	public void showBombs(Canvas c){
+		String text = "Bombs: " + p.getNumBombs();
+		c.drawText(text, c.getWidth()-700, 50, screenText);
+	}
+	
+	public void spawnGhost(){
+		addObject(new Circle(this, new PointF(0, 0), new PointF(100,
+				100), 50));
+	}
+	
+	public void spawnBomb(PointF pos){
+		addObject(new Bomb(this,pos));
+	}
+
+	public void dropBomb(PointF pos) {
+		addObject(new BombEffect(this,pos));	
+	}
+	
+	public void testCode(){
+		dropBomb(new PointF(200,200));
 	}
 
 }

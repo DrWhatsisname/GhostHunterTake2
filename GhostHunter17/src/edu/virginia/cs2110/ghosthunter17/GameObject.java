@@ -34,6 +34,8 @@ public abstract class GameObject {
 
 	public abstract void collide(GameObject g, Direction dir);
 
+	public void inLight(){}
+	
 	protected void moveTo(PointF target, float timePassed, float velocity) {
 		PointF dist = new PointF(target.x - pos.x, target.y - pos.y);
 		
@@ -75,5 +77,5 @@ public abstract class GameObject {
 			angleFrom%=360;
 		}
 		return angleFrom;
-	}
+	}	
 }

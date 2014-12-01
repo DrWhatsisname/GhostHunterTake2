@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.util.Log;
 
 public class Player extends GameObject {
 
@@ -16,14 +17,15 @@ public class Player extends GameObject {
 	private float rot;
 	private Paint p;
 	private int lives;
+	private int numBombs;
 
 	public Player(World world, PointF pos) {
 		super(world, pos);
 		p = new Paint();
-		// Initialize collision bounds as a rectangle
 		p.setColor(0xffff0000);
 		target = null;
 		lives = 3;
+		numBombs = 0;
 	}
 
 	@Override
@@ -80,6 +82,25 @@ public class Player extends GameObject {
 	
 	public float getRot() {
 		return rot;
+	}
+	
+	public void addBomb(){
+		numBombs++;
+		Log.d("WORLD", "Bombs: " +numBombs);
+	}
+	
+	public int getNumBombs(){
+		return numBombs;
+	}
+	
+	public void useBomb(){
+		if (numBombs > 0){
+			numBombs--;
+			world.dropBomb(pos);
+		}
+		else{
+			Log.d("WORLD", "No bombs left");
+		}
 	}
 
 }

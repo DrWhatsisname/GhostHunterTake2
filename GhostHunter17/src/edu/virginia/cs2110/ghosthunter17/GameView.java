@@ -31,6 +31,8 @@ public class GameView extends View {
 		Log.v("GameView", "initialize");
 		// Initialize things
 		lastTime = System.currentTimeMillis();
+		
+		setLayerType(LAYER_TYPE_SOFTWARE, null);
 
 		// Set up GameObject world
 		w = new World();
