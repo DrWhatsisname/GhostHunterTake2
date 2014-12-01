@@ -240,7 +240,7 @@ public class World {
 			c.restore();
 			
 			r.setPath(path, screen);
-			for (int g = inLight.size(); g >= 0; g--) {
+			for (int g = inLight.size()-1; g >= 0; g--) {
 				if (r.contains((int)inLight.get(g).pos.x, (int)inLight.get(g).pos.y)) {
 					inLight.remove(g);
 				}
