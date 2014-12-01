@@ -11,6 +11,7 @@ import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.graphics.Region;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.MotionEvent.PointerCoords;
 
@@ -69,6 +70,7 @@ public class World {
 	}
 
 	public void update(float timePassed) {
+
 		if (!paused) {
 			// Add/remove objects added/removed outside update
 			gameObjects.addAll(addQueue);
@@ -82,11 +84,6 @@ public class World {
 			}
 
 			checkCollision();
-
-			// Add/remove objects added/removed during update loop
-			gameObjects.addAll(addQueue);
-			gameObjects.removeAll(removeQueue);
-
 		}
 	}
 
@@ -137,7 +134,7 @@ public class World {
 		
 		showKills(c);
 		
-		//doLighting(c);
+//		doLighting(c);
 
 		if (paused) {
 			pausePaint.setColor(0x88111111);
@@ -295,7 +292,7 @@ public class World {
 	
 	public void addKill(){
 		kills++;
-		System.out.println(kills);
+		Log.d("WORLD", "Kills: " +kills);
 	}
 	
 	public int getKills(){
@@ -309,7 +306,7 @@ public class World {
 	
 	public void spawnGhost(){
 		//addQueue causes lag for some reason (directly adding to gameObjects instead)
-		this.gameObjects.add(new Circle(this, new PointF(0, 0), new PointF(100,
+		addObject(new Circle(this, new PointF(0, 0), new PointF(100,
 				100), 50));
 	}
 
