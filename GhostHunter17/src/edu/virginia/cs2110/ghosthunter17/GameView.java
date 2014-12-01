@@ -32,7 +32,7 @@ public class GameView extends View {
 		// Initialize things
 		lastTime = System.currentTimeMillis();
 		
-		setLayerType(LAYER_TYPE_HARDWARE, null);
+		setLayerType(LAYER_TYPE_SOFTWARE, null);
 
 		// Set up GameObject world
 		w = new World();
