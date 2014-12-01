@@ -24,8 +24,10 @@ public class World {
 	private ArrayList<GameObject> removeQueue;
 
 	private Player p;
+	private int kills;
 	private boolean paused;
 	private Paint pausePaint;
+	private Paint screenText;
 
 	public World() {
 		this(new ArrayList<GameObject>());
@@ -44,7 +46,11 @@ public class World {
 		pausePaint = new Paint();
 		pausePaint.setTextSize(200);
 		pausePaint.setTextAlign(Align.CENTER);
+		
+		screenText = new Paint();
+		screenText.setTextSize(60);
 
+		kills = 0;
 		p = new Player(this, new PointF(500, 500));
 		this.gameObjects.add(p);
 
@@ -129,7 +135,9 @@ public class World {
 			g.render(c);
 		}
 		
-		doLighting(c);
+		showKills(c);
+		
+		//doLighting(c);
 
 		if (paused) {
 			pausePaint.setColor(0x88111111);
@@ -250,6 +258,7 @@ public class World {
 		for (GameObject g : inLight) {
 			g.inLight();
 		}
+		
 
 	}
 
@@ -282,6 +291,26 @@ public class World {
 			return true;
 		} else
 			return false;
+	}
+	
+	public void addKill(){
+		kills++;
+		System.out.println(kills);
+	}
+	
+	public int getKills(){
+		return kills;
+	}
+	
+	public void showKills(Canvas c){
+		String text = "Kills: " + getKills();
+		c.drawText(text, 550, 50, screenText);
+	}
+	
+	public void spawnGhost(){
+		//addQueue causes lag for some reason (directly adding to gameObjects instead)
+		this.gameObjects.add(new Circle(this, new PointF(0, 0), new PointF(100,
+				100), 50));
 	}
 
 }

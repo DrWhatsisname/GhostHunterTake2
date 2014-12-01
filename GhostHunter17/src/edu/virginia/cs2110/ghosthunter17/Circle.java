@@ -56,8 +56,11 @@ public class Circle extends GameObject {
 
 	@Override
 	public void collide(GameObject g, Direction dir) {
-		if (g instanceof Player)
+		if (g instanceof Player){
 			world.removeObject(this);
+			world.addKill();
+			world.spawnGhost();
+		}
 	}
 
 	@Override

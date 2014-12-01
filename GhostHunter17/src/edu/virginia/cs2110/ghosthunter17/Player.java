@@ -20,7 +20,6 @@ public class Player extends GameObject {
 	public Player(World world, PointF pos) {
 		super(world, pos);
 		p = new Paint();
-		// Initialize collision bounds as a rectangle
 		p.setColor(0xffff0000);
 		target = null;
 		lives = 3;
