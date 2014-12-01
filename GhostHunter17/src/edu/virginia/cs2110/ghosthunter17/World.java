@@ -57,6 +57,7 @@ public class World {
 
 		this.gameObjects.add(new Circle(this, new PointF(0, 0), new PointF(100,
 				100), 50));
+		
 
 		this.gameObjects.add(new Wall(this, new RectF(400, 400, 500, 800)));
 

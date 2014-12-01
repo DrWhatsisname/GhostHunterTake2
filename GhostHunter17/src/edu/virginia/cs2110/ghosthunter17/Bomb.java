@@ -8,7 +8,7 @@ import android.graphics.RectF;
 
 public class Bomb extends GameObject {
 	
-	private static final float SIZE = 80; // Pixels
+	private static final float SIZE = 40; // Pixels
 	private Paint p;
 	
 	public Bomb(World world, PointF pos) {
@@ -25,19 +25,22 @@ public class Bomb extends GameObject {
 
 	@Override
 	public void update(float timePassed) {
-		// TODO Auto-generated method stub
+		//Stay Still
 		
 	}
 
 	@Override
 	public void render(Canvas c) {
-		// TODO Auto-generated method stub
-		
+		c.drawCircle(pos.x + SIZE, pos.y + SIZE, SIZE, p);
 	}
 
 	@Override
 	public void collide(GameObject g, Direction dir) {
-		// TODO Auto-generated method stub
+		if (g instanceof Player){
+			world.removeObject(this);
+			Player p = (Player)g;
+			p.addBomb();
+		}
 		
 	}
 

@@ -16,6 +16,7 @@ public class Player extends GameObject {
 	private float rot;
 	private Paint p;
 	private int lives;
+	private int numBombs;
 
 	public Player(World world, PointF pos) {
 		super(world, pos);
@@ -23,6 +24,7 @@ public class Player extends GameObject {
 		p.setColor(0xffff0000);
 		target = null;
 		lives = 3;
+		numBombs = 0;
 	}
 
 	@Override
@@ -79,6 +81,10 @@ public class Player extends GameObject {
 	
 	public float getRot() {
 		return rot;
+	}
+	
+	public void addBomb(){
+		numBombs++;
 	}
 
 }
