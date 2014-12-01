@@ -10,6 +10,7 @@ import android.graphics.Paint.Align;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.graphics.Region;
 import android.view.MotionEvent;
 import android.view.MotionEvent.PointerCoords;
 
@@ -186,6 +187,16 @@ public class World {
 		c.restore();
 		path.toggleInverseFillType();
 		
+		ArrayList<GameObject> inLight = new ArrayList<GameObject>();
+		Region r = new Region();
+		Region screen = new Region((int)bounds.left, (int)bounds.top, (int)bounds.right, (int)bounds.bottom);
+		r.setPath(path, screen);
+		for (GameObject g : gameObjects) { 
+			if (r.contains((int)g.pos.x, (int)g.pos.y)) {
+				inLight.add(g);
+			}
+		}
+		
 		
 		for (int i = 0; i < walls.size(); i++) {
 			lightPts.clear();
@@ -227,6 +238,17 @@ public class World {
 			c.clipPath(path);
 			c.drawColor(SHADOW_COLOR);
 			c.restore();
+			
+			r.setPath(path, screen);
+			for (int g = inLight.size(); g >= 0; g--) {
+				if (r.contains((int)inLight.get(g).pos.x, (int)inLight.get(g).pos.y)) {
+					inLight.remove(g);
+				}
+			}
+		}
+		
+		for (GameObject g : inLight) {
+			g.inLight();
 		}
 
 	}
