@@ -59,7 +59,9 @@ public class World {
 				100), 50));
 		
 		this.gameObjects.add(new Wall(this, new RectF(400, 400, 500, 800)));
-
+		
+		//Remove this line later
+		testCode();
 		for (int i = 0; i < 5; i++) {
 			this.gameObjects.add(new Box(this,
 					new PointF((float) Math.random() * 1000, (float) Math
@@ -312,6 +314,14 @@ public class World {
 	
 	public void spawnBomb(PointF pos){
 		addObject(new Bomb(this,pos));
+	}
+
+	public void dropBomb(PointF pos) {
+		addObject(new BombEffect(this,pos));	
+	}
+	
+	public void testCode(){
+		dropBomb(new PointF(200,200));
 	}
 
 }

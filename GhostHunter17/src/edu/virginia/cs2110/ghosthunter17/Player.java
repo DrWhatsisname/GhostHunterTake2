@@ -96,7 +96,7 @@ public class Player extends GameObject {
 	public void useBomb(){
 		if (numBombs > 0){
 			numBombs--;
-			
+			world.dropBomb(pos);
 		}
 		else{
 			Log.d("WORLD", "No bombs left");
