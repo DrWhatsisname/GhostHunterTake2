@@ -60,6 +60,12 @@ public class Circle extends GameObject {
 			world.removeObject(this);
 			world.addKill();
 			world.spawnGhost();
+			
+			//15% chance to spawn a bomb on death of Ghost
+			int rand = (int)(Math.random()*100);
+			if (rand<=15){
+				world.spawnBomb(pos);
+			}
 		}
 	}
 

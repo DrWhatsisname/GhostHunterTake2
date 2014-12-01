@@ -18,8 +18,6 @@ public class MainActivity extends Activity {
 		bgm = MediaPlayer.create(this, R.raw.castletheme);
 		bgm.setLooping(true);
 		bgm.start();
-		// Download new song and replace it with
-		// gameboybgm.setLooping(true);bgm.start();
 		setContentView(R.layout.activity_main);
 		game = (GameView) findViewById(R.id.gameView);
 	}

@@ -26,7 +26,6 @@ public class Bomb extends GameObject {
 	@Override
 	public void update(float timePassed) {
 		//Stay Still
-		
 	}
 
 	@Override
@@ -41,7 +40,5 @@ public class Bomb extends GameObject {
 			Player p = (Player)g;
 			p.addBomb();
 		}
-		
 	}
-
 }

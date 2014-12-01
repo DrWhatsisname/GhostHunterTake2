@@ -49,7 +49,7 @@ public class World {
 		pausePaint.setTextAlign(Align.CENTER);
 		
 		screenText = new Paint();
-		screenText.setTextSize(60);
+		screenText.setTextSize(50);
 
 		kills = 0;
 		p = new Player(this, new PointF(500, 500));
@@ -58,7 +58,6 @@ public class World {
 		this.gameObjects.add(new Circle(this, new PointF(0, 0), new PointF(100,
 				100), 50));
 		
-
 		this.gameObjects.add(new Wall(this, new RectF(400, 400, 500, 800)));
 
 		for (int i = 0; i < 5; i++) {
@@ -135,6 +134,7 @@ public class World {
 		
 		doLighting(c);
 		showKills(c);
+		showBombs(c);
 
 		if (paused) {
 			pausePaint.setColor(0x88111111);
@@ -295,19 +295,23 @@ public class World {
 		Log.d("WORLD", "Kills: " +kills);
 	}
 	
-	public int getKills(){
-		return kills;
+	public void showKills(Canvas c){
+		String text = "Kills: " + kills;
+		c.drawText(text, c.getWidth()-300, 50, screenText);
 	}
 	
-	public void showKills(Canvas c){
-		String text = "Kills: " + getKills();
-		c.drawText(text, 550, 50, screenText);
+	public void showBombs(Canvas c){
+		String text = "Bombs: " + p.getNumBombs();
+		c.drawText(text, c.getWidth()-700, 50, screenText);
 	}
 	
 	public void spawnGhost(){
-		//addQueue causes lag for some reason (directly adding to gameObjects instead)
 		addObject(new Circle(this, new PointF(0, 0), new PointF(100,
 				100), 50));
+	}
+	
+	public void spawnBomb(PointF pos){
+		addObject(new Bomb(this,pos));
 	}
 
 }

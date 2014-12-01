@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.util.Log;
 
 public class Player extends GameObject {
 
@@ -85,6 +86,21 @@ public class Player extends GameObject {
 	
 	public void addBomb(){
 		numBombs++;
+		Log.d("WORLD", "Bombs: " +numBombs);
+	}
+	
+	public int getNumBombs(){
+		return numBombs;
+	}
+	
+	public void useBomb(){
+		if (numBombs > 0){
+			numBombs--;
+			
+		}
+		else{
+			Log.d("WORLD", "No bombs left");
+		}
 	}
 
 }
