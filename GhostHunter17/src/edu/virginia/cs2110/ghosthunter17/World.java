@@ -20,7 +20,6 @@ public class World {
 	private static final float LIGHT_WIDTH = 120; // Degrees
 	private static final int SHADOW_COLOR = 0xff000000;
 	private static final float VIEW_CIRCLE = 200;
-	private static final int GHOST_TIME = 3;
 
 	private ArrayList<GameObject> gameObjects;
 	private ArrayList<GameObject> addQueue;
@@ -32,6 +31,7 @@ public class World {
 	private Paint pausePaint;
 	private Paint screenText;
 	private float ghostSpawnTimer;
+	private float ghostSpawnReset;
 	private float batterySpawnTimer;
 	private float batteryLife;
 	private boolean light;
@@ -70,8 +70,9 @@ public class World {
 		
 		
 		light = true;
-		
-		ghostSpawnTimer = GHOST_TIME;
+
+		ghostSpawnReset = 5;
+		ghostSpawnTimer = 5;
 		batterySpawnTimer = 30;
 		batteryLife = 30;
 		kills = 0;
@@ -108,7 +109,11 @@ public class World {
 			
 			if (ghostSpawnTimer <= 0) {
 				spawnGhost();
-				ghostSpawnTimer = GHOST_TIME;
+				ghostSpawnTimer = ghostSpawnReset;
+				ghostSpawnReset -= ghostSpawnReset/50;
+				if (ghostSpawnReset < .5) {
+					ghostSpawnReset = .5f;
+				}
 			}
 			
 			if (batterySpawnTimer <= 0) {
@@ -370,8 +375,9 @@ public class World {
 	public void spawnGhost(){
 		int x = (int)(Math.random()*1200);
 		int y = (int)(Math.random()*1100);
-		addObject(new Ghost(this, new PointF(x, y), new PointF(100,
-				100), 50));
+		double theta = Math.random()*Math.PI*2;
+		addObject(new Ghost(this, new PointF(x, y), new PointF(100 * (float)Math.cos(theta),
+				100 * (float)Math.sin(theta)), 50));
 	}
 	
 	public void spawnBomb(PointF pos){
