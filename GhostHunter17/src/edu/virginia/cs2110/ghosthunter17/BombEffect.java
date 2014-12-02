@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.media.MediaPlayer;
 
 public class BombEffect extends GameObject {
 	
@@ -17,6 +18,8 @@ public class BombEffect extends GameObject {
 	private float time;
 	private Bitmap bmp;
 	
+	MediaPlayer ourSong;
+	
 	public BombEffect(World world, PointF pos) {
 		super(world,pos);
 		p = new Paint();
@@ -24,8 +27,10 @@ public class BombEffect extends GameObject {
 		size = 40;
 		explode = false;
 		animation = false;
-		time = 3;
+
 		bmp = ResourceManager.getImage(R.drawable.bomb);
+		time = 2;
+
 	}
 
 	@Override
@@ -47,6 +52,8 @@ public class BombEffect extends GameObject {
 		}
 		else if (time <1 && !animation){
 			explode = true;
+			ourSong = MediaPlayer.create(this, R.raw.bomb);
+			ourSong.start();
 			size = 160;
 			p.setColor(Color.RED);
 			world.checkCollision();

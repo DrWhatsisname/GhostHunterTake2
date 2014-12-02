@@ -35,6 +35,9 @@ public class World {
 	private float batterySpawnTimer;
 	private float batteryLife;
 	private boolean light;
+	
+	private Paint gameOverPaint;
+	private boolean gameOver;
 
 	public World() {
 		this(new ArrayList<GameObject>());
@@ -54,6 +57,11 @@ public class World {
 		pausePaint.setTextSize(200);
 		pausePaint.setTextAlign(Align.CENTER);
 		
+		gameOver = false;
+		gameOverPaint = new Paint();
+		gameOverPaint.setTextSize(150);
+		gameOverPaint.setTextAlign(Align.CENTER);
+		
 		screenText = new Paint();
 		screenText.setTextSize(50);
 		screenText.setTextAlign(Align.CENTER);
@@ -62,9 +70,10 @@ public class World {
 		
 		
 		light = true;
+
 		ghostSpawnReset = 5;
 		ghostSpawnTimer = 5;
-		batterySpawnTimer = 30;
+		batterySpawnTimer = 25;
 		batteryLife = 30;
 		kills = 0;
 		p = new Player(this, new PointF(500, 500), MainMenuActivity.difficulty);
@@ -84,7 +93,7 @@ public class World {
 
 	public void update(float timePassed) {
 
-		if (!paused) {
+		if (!paused && !gameOver) {
 			
 			// Add/remove objects added/removed outside update
 			gameObjects.addAll(addQueue);
@@ -109,7 +118,7 @@ public class World {
 			
 			if (batterySpawnTimer <= 0) {
 				spawnBattery();
-				batterySpawnTimer = 30;
+				batterySpawnTimer = 25;
 			}
 			
 			// Update GameObjects
@@ -118,6 +127,10 @@ public class World {
 			}
 
 			checkCollision();
+			
+			if (p.getLives() <=0){
+				gameOver = true;
+			}
 		}
 	}
 
@@ -187,6 +200,15 @@ public class World {
 			pausePaint.setColor(0xFFFFFFFF);
 			c.drawText("Paused", c.getWidth() / 2, c.getHeight() / 2,
 					pausePaint);
+		}
+		
+		if (gameOver){
+			gameOverPaint.setColor(0x88111111);
+			c.drawRect(0, 0, c.getWidth(), c.getHeight(), gameOverPaint);
+			gameOverPaint.setColor(0xFFFFFFFF);
+			c.drawText("Game Over", c.getWidth() / 2, c.getHeight() / 2,
+					gameOverPaint);
+			
 		}
 	}
 
@@ -313,7 +335,9 @@ public class World {
 	}
 
 	public void pause() {
-		paused = true;
+		if (!gameOver){
+			paused = true;
+		}
 	}
 
 	public boolean onTouchEvent(MotionEvent event) {
@@ -351,11 +375,17 @@ public class World {
 	}
 	
 	public void spawnGhost(){
-		int x = (int)(Math.random()*1200);
-		int y = (int)(Math.random()*1100);
-		double theta = Math.random()*Math.PI*2;
-		addObject(new Ghost(this, new PointF(x, y), new PointF(100 * (float)Math.cos(theta),
-				100 * (float)Math.sin(theta)), 50));
+		RectF safeZone = new RectF(p.pos.x -Player.SIZE, p.pos.y -Player.SIZE, p.pos.x + Player.SIZE, p.pos.y + Player.SIZE);
+		Ghost g;
+		do{
+			int x = (int)(Math.random()*1200);
+			int y = (int)(Math.random()*1100);
+			double theta = Math.random()*Math.PI*2;
+			g = new Ghost(this, new PointF(x, y), new PointF(100 * (float)Math.cos(theta),
+					100 * (float)Math.sin(theta)), 50);
+		}
+		while(g.getColBounds().intersect(safeZone));
+		addObject(g);
 	}
 	
 	public void spawnBomb(PointF pos){

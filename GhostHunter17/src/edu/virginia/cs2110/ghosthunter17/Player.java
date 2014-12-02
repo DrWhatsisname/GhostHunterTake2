@@ -13,7 +13,7 @@ public class Player extends GameObject {
 
 	private static final float V = 500; // Pixels per second
 	private static final float ROT_V = 180; // Degrees per second
-	private static final float SIZE = 150; // Pixels
+	public static final float SIZE = 150; // Pixels
 
 	private PointF target;
 	private float rot;
@@ -55,7 +55,7 @@ public class Player extends GameObject {
 		}
 
 		else {
-			p.setColor(Color.BLACK);
+			p.setColor(Color.RED);
 		}
 		c.save();
 
@@ -106,6 +106,10 @@ public class Player extends GameObject {
 		else{
 			Log.d("WORLD", "No bombs left");
 		}
+	}
+	
+	public int getLives(){
+		return lives;
 	}
 
 }
