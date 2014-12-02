@@ -29,7 +29,8 @@ public class World {
 	private boolean paused;
 	private Paint pausePaint;
 	private Paint screenText;
-	private float spawnTimer;
+	private float ghostSpawnTimer;
+	private float batterySpawnTimer;
 	private boolean light;
 
 	public World() {
@@ -54,7 +55,9 @@ public class World {
 		screenText.setTextSize(50);
 		
 		light = true;
-
+		
+		ghostSpawnTimer = 5;
+		batterySpawnTimer = 30;
 		kills = 0;
 		p = new Player(this, new PointF(500, 500), MainMenuActivity.difficulty);
 		this.gameObjects.add(p);
@@ -64,10 +67,8 @@ public class World {
 		this.gameObjects.add(new Wall(this, new RectF(0, 590, 100, 610)));
 		this.gameObjects.add(new Wall(this, new RectF(250, 590, 410, 610)));
 		this.gameObjects.add(new Wall(this, new RectF(410, 590, 510, 610)));
-		this.gameObjects.add(new Wall(this, new RectF(670, 590, 800, 610)));
-		
-		this.gameObjects.add(new Battery(this, new PointF(500,900)));
-		
+		this.gameObjects.add(new Wall(this, new RectF(670, 590, 800, 610)));	
+	
 		//Remove this line later
 		testCode();
 
@@ -82,11 +83,18 @@ public class World {
 			addQueue.clear();
 			gameObjects.removeAll(removeQueue);
 			removeQueue.clear();
-			spawnTimer -=timePassed;
-			if (spawnTimer <= 0) {
+			ghostSpawnTimer -= timePassed;
+			batterySpawnTimer -= timePassed;
+			if (ghostSpawnTimer <= 0) {
 				spawnGhost();
-				spawnTimer = 5;
+				ghostSpawnTimer = 5;
 			}
+			
+			if (batterySpawnTimer <= 0) {
+				spawnBattery();
+				batterySpawnTimer = 30;
+			}
+			
 			// Update GameObjects
 			for (GameObject g : gameObjects) {
 				g.update(timePassed);
@@ -334,6 +342,12 @@ public class World {
 	
 	public void spawnBomb(PointF pos){
 		addObject(new Bomb(this,pos));
+	}
+	
+	public void spawnBattery(){
+		int x = (int)(Math.random()*1200);
+		int y = (int)(Math.random()*1100);
+		addObject(new Battery(this, new PointF(x, y)));
 	}
 
 	public void dropBomb() {
