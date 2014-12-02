@@ -38,7 +38,7 @@ public class Battery extends GameObject {
 	public void collide(GameObject g, Direction dir) {
 		if (g instanceof Player){
 			world.removeObject(this);
-			Player p = (Player)g;
+			world.rechargeBattery();
 		}
 	}
 }

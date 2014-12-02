@@ -32,6 +32,7 @@ public class World {
 	private Paint screenText;
 	private float ghostSpawnTimer;
 	private float batterySpawnTimer;
+	private float batteryLife;
 	private boolean light;
 
 	public World() {
@@ -63,6 +64,7 @@ public class World {
 		
 		ghostSpawnTimer = 5;
 		batterySpawnTimer = 30;
+		batteryLife = 30;
 		kills = 0;
 		p = new Player(this, new PointF(500, 500), MainMenuActivity.difficulty);
 		this.gameObjects.add(p);
@@ -90,6 +92,11 @@ public class World {
 			removeQueue.clear();
 			ghostSpawnTimer -= timePassed;
 			batterySpawnTimer -= timePassed;
+			
+			if (light){
+				batteryLife -= timePassed;
+			}
+			
 			if (ghostSpawnTimer <= 0) {
 				spawnGhost();
 				ghostSpawnTimer = 5;
@@ -153,7 +160,7 @@ public class World {
 		for (GameObject g : gameObjects) {
 			g.render(c);
 		}
-		if (light) {
+		if (light && batteryLife>0) {
 		doLighting(c);
 		}
 		else {
@@ -366,6 +373,10 @@ public class World {
 	public void toggleLight() {
 		light = !light;
 		
+	}
+	
+	public void rechargeBattery(){
+		batteryLife = 30;
 	}
 	
 }

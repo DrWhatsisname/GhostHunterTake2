@@ -66,13 +66,13 @@ public class GameView extends View {
 		Ghost.boundX = w;
 		Ghost.boundY = h;
 		
-		bombButton.left = 50;
-		bombButton.right = 450;
+		bombButton.left = 65;
+		bombButton.right = 365;
 		bombButton.top = h - 90;
 		bombButton.bottom = h - 10;
 		
-		lightButton.left = 500;
-		lightButton.right = 900;
+		lightButton.left = 415;
+		lightButton.right = 715;
 		lightButton.top = h - 90;
 		lightButton.bottom = h - 10;
 	}
