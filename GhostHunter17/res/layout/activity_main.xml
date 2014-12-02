@@ -3,5 +3,9 @@
     android:id="@+id/gameView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.virginia.cs2110.ghosthunter17.MainActivity" />
+    tools:context="edu.virginia.cs2110.ghosthunter17.MainActivity">
+    
+    </edu.virginia.cs2110.ghosthunter17.GameView>
+    
+
 

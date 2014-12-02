@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
-import android.util.Log;
 
 public class BombEffect extends GameObject {
 	
@@ -32,6 +31,7 @@ public class BombEffect extends GameObject {
 	@Override
 	public void update(float timePassed) {
 		//Wait 2 seconds, then blow up
+		//Allow 1 second extra for animation
 		time-= timePassed;
 		if (time<=0){
 			world.removeObject(this);
