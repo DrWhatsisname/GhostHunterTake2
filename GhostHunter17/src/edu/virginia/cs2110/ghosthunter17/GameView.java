@@ -6,14 +6,19 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 
 public class GameView extends View {
 
 	private long lastTime;
 	private World w;
+	private Button bombButton;
+	private Button lightButton;
 
 	public GameView(Context context) {
 		super(context);
+		bombButton = new Button(context);
+		lightButton = new Button(context);
 		init();
 	}
 
@@ -36,6 +41,7 @@ public class GameView extends View {
 
 		// Set up GameObject world
 		w = new World();
+	
 	}
 
 	public void onPause() {
@@ -45,24 +51,6 @@ public class GameView extends View {
 	public void onResume() {
 		lastTime = System.currentTimeMillis();
 	}
-
-	// @Override
-	// protected Parcelable onSaveInstanceState() {
-	// Parcel p = Parcel.obtain();
-	// p.writeList(gameObjects);
-	// Parcelable parcel = p.readParcelable(null);
-	// p.recycle();
-	// return parcel;
-	//
-	// }
-	//
-	// @Override
-	// protected void onRestoreInstanceState(Parcelable state) {
-	// Parcel p = Parcel.obtain();
-	// state.writeToParcel(p, 0);
-	// p.readList(gameObjects, null);
-	// p.recycle();
-	// }
 
 	@Override
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -88,6 +76,8 @@ public class GameView extends View {
 
 	private void render(Canvas c) {
 		w.render(c);
+		bombButton.draw(c);
+		lightButton.draw(c);
 	}
 
 	private void update() {
@@ -101,6 +91,7 @@ public class GameView extends View {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
+		
 		if (w.onTouchEvent(event)) {
 			performClick();
 			return true;

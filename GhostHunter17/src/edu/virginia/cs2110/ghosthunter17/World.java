@@ -19,6 +19,7 @@ public class World {
 
 	private static final float LIGHT_WIDTH = 120; // Degrees
 	private static final int SHADOW_COLOR = 0xff888888;
+	private static final float VIEW_CIRCLE = 200;
 
 	private ArrayList<GameObject> gameObjects;
 	private ArrayList<GameObject> addQueue;
@@ -30,6 +31,7 @@ public class World {
 	private Paint pausePaint;
 	private Paint screenText;
 	private float spawnTimer;
+	private boolean light;
 
 	public World() {
 		this(new ArrayList<GameObject>());
@@ -51,6 +53,8 @@ public class World {
 		
 		screenText = new Paint();
 		screenText.setTextSize(50);
+		
+		light = true;
 
 		kills = 0;
 		p = new Player(this, new PointF(500, 500), MainMenuActivity.difficulty);
@@ -132,11 +136,22 @@ public class World {
 		for (GameObject g : gameObjects) {
 			g.render(c);
 		}
-		
+		if (light) {
 		doLighting(c);
+		}
+		else {
+			Path path = new Path();
+			path.addOval(new RectF(p.pos.x-VIEW_CIRCLE, p.pos.y-VIEW_CIRCLE, p.pos.x+VIEW_CIRCLE, p.pos.y+VIEW_CIRCLE), Path.Direction.CCW);
+			path.toggleInverseFillType();
+			c.save();
+			c.clipPath(path);
+			c.drawColor(SHADOW_COLOR);
+			c.restore();
+		}
+			
 		showKills(c);
 		showBombs(c);
-
+		
 		if (paused) {
 			pausePaint.setColor(0x88111111);
 			c.drawRect(0, 0, c.getWidth(), c.getHeight(), pausePaint);
@@ -319,12 +334,17 @@ public class World {
 		addObject(new Bomb(this,pos));
 	}
 
-	public void dropBomb(PointF pos) {
-		addObject(new BombEffect(this,pos));	
+	public void dropBomb() {
+		p.useBomb();	
 	}
 	
 	public void testCode(){
-		dropBomb(new PointF(200,200));
+		dropBomb();
+	}
+
+	public void toggleLight() {
+		light = !light;
+		
 	}
 	
 }

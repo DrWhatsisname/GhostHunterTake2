@@ -97,7 +97,7 @@ public class Player extends GameObject {
 	public void useBomb(){
 		if (numBombs > 0){
 			numBombs--;
-			world.dropBomb(pos);
+			world.addObject(new BombEffect(world,new PointF(pos.x,pos.y)));
 		}
 		else{
 			Log.d("WORLD", "No bombs left");
