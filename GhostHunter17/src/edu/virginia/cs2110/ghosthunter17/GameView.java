@@ -41,7 +41,7 @@ public class GameView extends View {
 		
 		setLayerType(LAYER_TYPE_SOFTWARE, null);
 
-		ResourceManager.res = getResources();
+		ResourceManager.c = this.getContext();
 		// Set up GameObject world
 		w = new World();
 		
