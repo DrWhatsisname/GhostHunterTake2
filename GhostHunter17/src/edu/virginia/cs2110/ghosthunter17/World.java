@@ -16,7 +16,6 @@ import android.view.MotionEvent;
 import android.view.MotionEvent.PointerCoords;
 
 public class World {
-
 	private static final float LIGHT_WIDTH = 120; // Degrees
 	private static final int SHADOW_COLOR = 0xff888888;
 	private static final float VIEW_CIRCLE = 200;
@@ -38,7 +37,7 @@ public class World {
 	}
 
 	public World(Collection<GameObject> gameObjects) {
-
+		
 		this.gameObjects = new ArrayList<GameObject>();
 		gameObjects.addAll(gameObjects);
 
@@ -60,9 +59,13 @@ public class World {
 		p = new Player(this, new PointF(500, 500), MainMenuActivity.difficulty);
 		this.gameObjects.add(p);
 
-		//this.gameObjects.add(new Ghost(this, new PointF(0, 0), new PointF(100, 100), 50));
-
-		this.gameObjects.add(new Wall(this, new RectF(400, 400, 500, 800)));
+		//this.gameObjects.add(new Wall(this, new RectF(400, 400, 500, 800)));
+		this.gameObjects.add(new Wall(this, new RectF(390, 0, 410, 600)));
+		this.gameObjects.add(new Wall(this, new RectF(0, 590, 100, 610)));
+		this.gameObjects.add(new Wall(this, new RectF(250, 590, 410, 610)));
+		this.gameObjects.add(new Wall(this, new RectF(410, 590, 510, 610)));
+		this.gameObjects.add(new Wall(this, new RectF(670, 590, 800, 610)));
+		
 		
 		//Remove this line later
 		testCode();

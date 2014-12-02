@@ -12,13 +12,9 @@ public class GameView extends View {
 
 	private long lastTime;
 	private World w;
-	private Button bombButton;
-	private Button lightButton;
 
 	public GameView(Context context) {
 		super(context);
-		bombButton = new Button(context);
-		lightButton = new Button(context);
 		init();
 	}
 
@@ -76,8 +72,6 @@ public class GameView extends View {
 
 	private void render(Canvas c) {
 		w.render(c);
-		bombButton.draw(c);
-		lightButton.draw(c);
 	}
 
 	private void update() {
