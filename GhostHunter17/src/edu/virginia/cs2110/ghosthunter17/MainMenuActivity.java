@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.SeekBar;
 
 
 public class MainMenuActivity extends Activity {
+	
+	public static int difficulty = 0;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -16,10 +19,9 @@ public class MainMenuActivity extends Activity {
 	}
 	
 	public void onNewGame(View v){
+		difficulty = ((SeekBar)findViewById(R.id.seekBar1)).getProgress();
 		Intent intent = new Intent();
 		intent.setClass(this, MainActivity.class);
 		startActivity(intent);
 	}
-
-	//yo
 }

@@ -19,12 +19,12 @@ public class Player extends GameObject {
 	private int lives;
 	private int numBombs;
 
-	public Player(World world, PointF pos) {
+	public Player(World world, PointF pos, int difficulty) {
 		super(world, pos);
 		p = new Paint();
 		p.setColor(0xffff0000);
 		target = null;
-		lives = 3;
+		lives = 3-difficulty;
 		numBombs = 0;
 	}
 
@@ -43,6 +43,17 @@ public class Player extends GameObject {
 
 	@Override
 	public void render(Canvas c) {
+		if (lives == 3) {
+			p.setColor(Color.GREEN);
+		}
+
+		else if (lives == 2) {
+			p.setColor(Color.YELLOW);
+		}
+
+		else {
+			p.setColor(Color.BLACK);
+		}
 		c.save();
 
 		c.rotate(rot, pos.x, pos.y);
@@ -58,17 +69,7 @@ public class Player extends GameObject {
 	@Override
 	public void collide(GameObject g, Direction dir) {
 		if (g instanceof Ghost) {
-			if (lives == 3) {
-				p.setColor(Color.YELLOW);
-			}
-
-			else if (lives == 2) {
-				p.setColor(Color.RED);
-			}
-
-			else {
-				p.setColor(Color.BLACK);
-			}
+			
 
 			lives--;
 		}

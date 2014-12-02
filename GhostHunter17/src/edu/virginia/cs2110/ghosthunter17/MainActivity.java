@@ -20,6 +20,7 @@ public class MainActivity extends Activity {
 		bgm.start();
 		setContentView(R.layout.activity_main);
 		game = (GameView) findViewById(R.id.gameView);
+		
 	}
 
 	@Override

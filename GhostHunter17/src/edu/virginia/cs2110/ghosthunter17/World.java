@@ -52,7 +52,7 @@ public class World {
 		screenText.setTextSize(50);
 
 		kills = 0;
-		p = new Player(this, new PointF(500, 500));
+		p = new Player(this, new PointF(500, 500), MainMenuActivity.difficulty);
 		this.gameObjects.add(p);
 
 		this.gameObjects.add(new Ghost(this, new PointF(0, 0), new PointF(100, 100), 50));
@@ -297,7 +297,7 @@ public class World {
 	
 	public void showBombs(Canvas c){
 		String text = "Bombs: " + p.getNumBombs();
-		c.drawText(text, c.getWidth()-700, 50, screenText);
+		c.drawText(text, 30, 50, screenText);
 	}
 	
 	public void spawnGhost(){

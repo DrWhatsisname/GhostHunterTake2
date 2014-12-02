@@ -9,5 +9,6 @@
     <string name="title_activity_main_menu">[Insert Title Here] </string>
     <string name="new_game">New Game</string>
     <string name="action_pause">Pause</string>
+    <string name="difficulty">Difficulty</string>
 
 </resources>
