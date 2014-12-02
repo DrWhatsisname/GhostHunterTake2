@@ -335,7 +335,9 @@ public class World {
 	}
 
 	public void pause() {
-		paused = true;
+		if (!gameOver){
+			paused = true;
+		}
 	}
 
 	public boolean onTouchEvent(MotionEvent event) {
