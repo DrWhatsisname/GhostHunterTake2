@@ -7,10 +7,15 @@ import android.graphics.RectF;
 
 public class Ghost extends GameObject {
 	public static int boundX, boundY;
+	
+	private static float LIGHT_DAMAGE = 2f;
 
 	private PointF vel, size;
 	private Paint p;
 	private float radius;
+	private float health;
+	private boolean light;
+
 
 	
 	//ignore this comment
@@ -19,7 +24,9 @@ public class Ghost extends GameObject {
 		this.vel = vel;
 		this.size = new PointF(2 * radius, 2 * radius);
 		this.radius = radius;
-
+		this.health = 1;
+		this.light = false;
+		
 		// Initialize a paint object to red
 		this.p = new Paint();
 		p.setColor(0xff4b0082);
@@ -46,11 +53,22 @@ public class Ghost extends GameObject {
 			pos.y = 0;
 			vel.y = -vel.y;
 		}
+		
+		if (light) {
+			health -= LIGHT_DAMAGE * timePassed;
+		}
+		
+		if (health <= 0) {
+			die();
+		}
+		
+		light = false;
 	}
 
 	@Override
 	public void render(Canvas c) {
 		// Draw a rectangle at the box's position
+		p.setAlpha((int)(255*health));
 		c.drawCircle(pos.x + radius, pos.y + radius, radius, p);
 	}
 
@@ -75,6 +93,11 @@ public class Ghost extends GameObject {
 	@Override
 	public RectF getColBounds() {
 		return new RectF(pos.x, pos.y, pos.x+size.x, pos.y+size.y);
+	}
+	
+	@Override
+	public void inLight() {
+		light = true;
 	}
 
 }
