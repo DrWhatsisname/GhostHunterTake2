@@ -29,6 +29,7 @@ public class World {
 	private boolean paused;
 	private Paint pausePaint;
 	private Paint screenText;
+	private float spawnTimer;
 
 	public World() {
 		this(new ArrayList<GameObject>());
@@ -67,12 +68,17 @@ public class World {
 	public void update(float timePassed) {
 
 		if (!paused) {
+			
 			// Add/remove objects added/removed outside update
 			gameObjects.addAll(addQueue);
 			addQueue.clear();
 			gameObjects.removeAll(removeQueue);
 			removeQueue.clear();
-
+			spawnTimer -=timePassed;
+			if (spawnTimer <= 0) {
+				spawnGhost();
+				spawnTimer = 5;
+			}
 			// Update GameObjects
 			for (GameObject g : gameObjects) {
 				g.update(timePassed);
@@ -316,5 +322,5 @@ public class World {
 	public void testCode(){
 		dropBomb(new PointF(200,200));
 	}
-
+	
 }
