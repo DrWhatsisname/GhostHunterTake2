@@ -7,6 +7,7 @@ import edu.virginia.cs2110.ghosthunter17.GameObject.Direction;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
+import android.graphics.Color;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RectF;
@@ -17,7 +18,7 @@ import android.view.MotionEvent.PointerCoords;
 
 public class World {
 	private static final float LIGHT_WIDTH = 120; // Degrees
-	private static final int SHADOW_COLOR = 0xff888888;
+	private static final int SHADOW_COLOR = 0xff000000;
 	private static final float VIEW_CIRCLE = 200;
 
 	private ArrayList<GameObject> gameObjects;
@@ -53,6 +54,10 @@ public class World {
 		
 		screenText = new Paint();
 		screenText.setTextSize(50);
+		screenText.setTextAlign(Align.CENTER);
+		screenText.setColor(Color.WHITE);
+		screenText.setShadowLayer(5, 0, 0, Color.BLACK);
+		
 		
 		light = true;
 		
@@ -330,7 +335,7 @@ public class World {
 	
 	public void showBombs(Canvas c){
 		String text = "Bombs: " + p.getNumBombs();
-		c.drawText(text, 30, 50, screenText);
+		c.drawText(text, 150, 50, screenText);
 	}
 	
 	public void spawnGhost(){

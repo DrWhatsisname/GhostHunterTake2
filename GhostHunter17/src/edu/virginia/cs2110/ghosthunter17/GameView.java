@@ -2,16 +2,22 @@ package edu.virginia.cs2110.ghosthunter17;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.Paint.Align;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
+import android.view.MotionEvent.PointerCoords;
 
 public class GameView extends View {
 
 	private long lastTime;
 	private World w;
+	private Rect bombButton, lightButton;
+	private Paint buttonPaint;
 
 	public GameView(Context context) {
 		super(context);
@@ -37,7 +43,13 @@ public class GameView extends View {
 
 		// Set up GameObject world
 		w = new World();
-	
+		
+		bombButton = new Rect();
+		lightButton = new Rect();
+		
+		buttonPaint = new Paint();
+		buttonPaint.setTextAlign(Align.CENTER);
+		buttonPaint.setTextSize(40);
 	}
 
 	public void onPause() {
@@ -53,6 +65,16 @@ public class GameView extends View {
 		super.onSizeChanged(w, h, oldw, oldh);
 		Ghost.boundX = w;
 		Ghost.boundY = h;
+		
+		bombButton.left = 50;
+		bombButton.right = 450;
+		bombButton.top = h - 90;
+		bombButton.bottom = h - 10;
+		
+		lightButton.left = 500;
+		lightButton.right = 900;
+		lightButton.top = h - 90;
+		lightButton.bottom = h - 10;
 	}
 
 	@Override
@@ -72,6 +94,14 @@ public class GameView extends View {
 
 	private void render(Canvas c) {
 		w.render(c);
+		
+		buttonPaint.setColor(Color.GRAY);
+		c.drawRect(bombButton, buttonPaint);
+		c.drawRect(lightButton, buttonPaint);
+		
+		buttonPaint.setColor(Color.BLACK);
+		c.drawText("Drop Bomb", bombButton.centerX(), bombButton.centerY(), buttonPaint);
+		c.drawText("Toggle Light", lightButton.centerX(), lightButton.centerY(), buttonPaint);
 	}
 
 	private void update() {
@@ -85,6 +115,16 @@ public class GameView extends View {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
+		if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			PointerCoords coord = new PointerCoords();
+			event.getPointerCoords(event.getActionIndex(), coord);
+			if (bombButton.contains((int)coord.x, (int)coord.y)) {
+				w.dropBomb();
+			}
+			else if (lightButton.contains((int)coord.x, (int)coord.y)){
+				w.toggleLight();
+			}
+		}
 		
 		if (w.onTouchEvent(event)) {
 			performClick();

@@ -1,11 +1,9 @@
 package edu.virginia.cs2110.ghosthunter17;
 
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
-import android.webkit.WebView.FindListener;
 
 public class Ghost extends GameObject {
 	public static int boundX, boundY;
