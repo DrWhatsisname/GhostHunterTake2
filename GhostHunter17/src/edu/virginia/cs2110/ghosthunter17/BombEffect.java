@@ -57,8 +57,8 @@ public class BombEffect extends GameObject {
 
 	@Override
 	public void collide(GameObject g, Direction dir) {
-		if (explode && g instanceof Circle){
-				Circle cir = (Circle)g;
+		if (explode && g instanceof Ghost){
+				Ghost cir = (Ghost)g;
 				cir.die();
 		}
 	}

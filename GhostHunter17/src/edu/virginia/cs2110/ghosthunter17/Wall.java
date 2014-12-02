@@ -40,17 +40,19 @@ public class Wall extends GameObject {
 
 	@Override
 	public void collide(GameObject g, Direction dir) {
-		if (dir == Direction.NORTH) {
-			g.pos.y -= g.getColBounds().bottom - this.bounds.top;
-		}
-		else if (dir == Direction.SOUTH) {
-			g.pos.y += this.bounds.bottom - g.getColBounds().top;
-		}
-		else if (dir == Direction.EAST) {
-			g.pos.x += this.bounds.right - g.getColBounds().left;
-		}
-		else {
-			g.pos.x -= g.getColBounds().right - this.bounds.left;
+		if (!(g instanceof Ghost)) {
+			if (dir == Direction.NORTH) {
+				g.pos.y -= g.getColBounds().bottom - this.bounds.top;
+			}
+			else if (dir == Direction.SOUTH) {
+				g.pos.y += this.bounds.bottom - g.getColBounds().top;
+			}
+			else if (dir == Direction.EAST) {
+				g.pos.x += this.bounds.right - g.getColBounds().left;
+			}
+			else {
+				g.pos.x -= g.getColBounds().right - this.bounds.left;
+			}
 		}
 	}
 	

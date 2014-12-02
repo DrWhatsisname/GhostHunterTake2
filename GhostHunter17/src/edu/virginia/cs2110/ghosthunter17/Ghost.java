@@ -5,21 +5,24 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
 
-public class Box extends GameObject {
+public class Ghost extends GameObject {
 	public static int boundX, boundY;
 
 	private PointF vel, size;
 	private Paint p;
+	private float radius;
 
-	public Box(World w, PointF pos, PointF vel) {
+	
+	//ignore this comment
+	public Ghost(World w, PointF pos, PointF vel, float radius) {
 		super(w, pos);
 		this.vel = vel;
-		this.size = new PointF(100, 100);
+		this.size = new PointF(2 * radius, 2 * radius);
+		this.radius = radius;
 
 		// Initialize a paint object to red
 		this.p = new Paint();
-		p.setColor(0xffff0000);
-
+		p.setColor(0xff4b0082);
 	}
 
 	@Override
@@ -43,40 +46,36 @@ public class Box extends GameObject {
 			pos.y = 0;
 			vel.y = -vel.y;
 		}
-
 	}
 
 	@Override
 	public void render(Canvas c) {
 		// Draw a rectangle at the box's position
-		c.drawRect(pos.x, pos.y, pos.x + size.x, pos.y + size.y, p);
+		c.drawCircle(pos.x + radius, pos.y + radius, radius, p);
 	}
 
 	@Override
 	public void collide(GameObject g, Direction dir) {
-		// Set color to a random color if collide with another box
-		if (g instanceof Box) {
-			p.setARGB(255, (int) (Math.random() * 255),
-					(int) (Math.random() * 255), (int) (Math.random() * 255));
+		if (g instanceof Player){
+			die();
 		}
-		// Reset to red if collide with a circle or the player
-		else if (g instanceof Circle || g instanceof Player) {
-			p.setColor(0xffff0000);
-		}
-
-		else if (g instanceof Wall) {
-			if (dir == Direction.NORTH || dir == Direction.SOUTH) {
-				vel.y = -vel.y;
-			}
-			else {
-				vel.x = -vel.x;
-			}
+	}
+	
+	public void die(){
+		world.removeObject(this);
+		world.addKill();
+		world.spawnGhost();
+		
+		//15% chance to spawn a bomb on death of Ghost
+		int rand = (int)(Math.random()*100);
+		if (rand<=15){
+			world.spawnBomb(pos);
 		}
 	}
 
 	@Override
 	public RectF getColBounds() {
-		return new RectF(pos.x, pos.y, pos.x + size.x, pos.y + size.y);
+		return new RectF(pos.x, pos.y, pos.x+size.x, pos.y+size.y);
 	}
 
 }

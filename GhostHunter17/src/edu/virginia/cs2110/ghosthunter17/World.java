@@ -55,20 +55,14 @@ public class World {
 		p = new Player(this, new PointF(500, 500));
 		this.gameObjects.add(p);
 
-		this.gameObjects.add(new Circle(this, new PointF(0, 0), new PointF(100,
+		this.gameObjects.add(new Ghost(this, new PointF(0, 0), new PointF(100,
 				100), 50));
 		
 		this.gameObjects.add(new Wall(this, new RectF(400, 400, 500, 800)));
 		
 		//Remove this line later
 		testCode();
-		for (int i = 0; i < 5; i++) {
-			this.gameObjects.add(new Box(this,
-					new PointF((float) Math.random() * 1000, (float) Math
-							.random() * 1000), new PointF(
-							(float) Math.random() * 1000,
-							(float) Math.random() * 1000)));
-		}
+
 	}
 
 	public void update(float timePassed) {
@@ -308,7 +302,7 @@ public class World {
 	}
 	
 	public void spawnGhost(){
-		addObject(new Circle(this, new PointF(0, 0), new PointF(100,
+		addObject(new Ghost(this, new PointF(0, 0), new PointF(100,
 				100), 50));
 	}
 	

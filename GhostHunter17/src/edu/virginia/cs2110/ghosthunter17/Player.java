@@ -57,7 +57,7 @@ public class Player extends GameObject {
 
 	@Override
 	public void collide(GameObject g, Direction dir) {
-		if (g instanceof Circle) {
+		if (g instanceof Ghost) {
 			if (lives == 3) {
 				p.setColor(Color.YELLOW);
 			}

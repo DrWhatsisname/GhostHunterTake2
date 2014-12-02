@@ -67,10 +67,8 @@ public class GameView extends View {
 	@Override
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
 		super.onSizeChanged(w, h, oldw, oldh);
-		Box.boundX = w;
-		Box.boundY = h;
-		Circle.boundX = w;
-		Circle.boundY = h;
+		Ghost.boundX = w;
+		Ghost.boundY = h;
 	}
 
 	@Override
