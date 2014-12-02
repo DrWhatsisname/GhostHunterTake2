@@ -55,13 +55,14 @@ public class World {
 		p = new Player(this, new PointF(500, 500), MainMenuActivity.difficulty);
 		this.gameObjects.add(p);
 
-		//this.gameObjects.add(new Wall(this, new RectF(400, 400, 500, 800)));
+		//Walls
 		this.gameObjects.add(new Wall(this, new RectF(390, 0, 410, 600)));
 		this.gameObjects.add(new Wall(this, new RectF(0, 590, 100, 610)));
 		this.gameObjects.add(new Wall(this, new RectF(250, 590, 410, 610)));
 		this.gameObjects.add(new Wall(this, new RectF(410, 590, 510, 610)));
 		this.gameObjects.add(new Wall(this, new RectF(670, 590, 800, 610)));
 		
+		this.gameObjects.add(new Battery(this, new PointF(500,900)));
 		
 		//Remove this line later
 		testCode();
@@ -314,8 +315,6 @@ public class World {
 		int y = (int)(Math.random()*1100);
 		addObject(new Ghost(this, new PointF(x, y), new PointF(100,
 				100), 50));
-		
-		
 	}
 	
 	public void spawnBomb(PointF pos){
@@ -323,7 +322,7 @@ public class World {
 	}
 
 	public void dropBomb(PointF pos) {
-		addObject(new BombEffect(this,pos));	
+		addObject(new BombEffect(this,pos));
 	}
 	
 	public void testCode(){

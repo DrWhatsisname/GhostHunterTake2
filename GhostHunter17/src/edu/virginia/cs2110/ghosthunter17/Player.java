@@ -18,7 +18,7 @@ public class Player extends GameObject {
 	private Paint p;
 	private int lives;
 	private int numBombs;
-
+	
 	public Player(World world, PointF pos, int difficulty) {
 		super(world, pos);
 		p = new Paint();
@@ -37,7 +37,6 @@ public class Player extends GameObject {
 						rot, timePassed, ROT_V);
 			}
 			moveTo(target, timePassed, V);
-
 		}
 	}
 
