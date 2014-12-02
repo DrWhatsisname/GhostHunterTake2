@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.media.MediaPlayer;
 
 public class BombEffect extends GameObject {
 	
@@ -13,6 +14,8 @@ public class BombEffect extends GameObject {
 	private boolean animation;
 	private Paint p;
 	private float time;
+	
+	MediaPlayer ourSong;
 	
 	public BombEffect(World world, PointF pos) {
 		super(world,pos);
@@ -43,6 +46,8 @@ public class BombEffect extends GameObject {
 		}
 		else if (time <1 && !animation){
 			explode = true;
+			ourSong = MediaPlayer.create(this, R.raw.bomb);
+			ourSong.start();
 			size = 160;
 			p.setColor(Color.RED);
 			world.checkCollision();
