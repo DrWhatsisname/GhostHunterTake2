@@ -11,7 +11,7 @@ public class GameView extends View {
 
 	private long lastTime;
 	private World w;
-
+	
 	public GameView(Context context) {
 		super(context);
 		init();
