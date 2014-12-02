@@ -101,7 +101,7 @@ public class World {
 			if (ghostSpawnTimer <= 0) {
 				spawnGhost();
 				ghostSpawnTimer = ghostSpawnReset;
-				ghostSpawnReset -= ghostSpawnReset/10;
+				ghostSpawnReset -= ghostSpawnReset/50;
 				if (ghostSpawnReset < .5) {
 					ghostSpawnReset = .5f;
 				}
