@@ -127,7 +127,7 @@ public class World {
 	}
 
 	public void render(Canvas c) {	
-
+		
 		// Render GameObjects
 		for (GameObject g : gameObjects) {
 			g.render(c);
