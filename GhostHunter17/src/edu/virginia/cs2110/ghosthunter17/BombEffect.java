@@ -67,11 +67,11 @@ public class BombEffect extends GameObject {
 	@Override
 	public void render(Canvas c) {
 		if (time<1){
-//			c.drawCircle(pos.x, pos.y, size, p);
-			c.drawBitmap(bmp, new Rect(0,0,bmp.getWidth(),bmp.getHeight()), getColBounds(), p);
+			c.drawCircle(pos.x, pos.y, size, p);
 		}
 		else{
-			c.drawCircle(pos.x + size, pos.y + size, size, p);
+			//c.drawCircle(pos.x + size, pos.y + size, size, p);
+			c.drawBitmap(bmp, new Rect(0,0,bmp.getWidth(),bmp.getHeight()), getColBounds(), p);
 		}
 	}
 
