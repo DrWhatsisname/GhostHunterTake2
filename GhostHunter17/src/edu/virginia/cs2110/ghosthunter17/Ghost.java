@@ -64,7 +64,6 @@ public class Ghost extends GameObject {
 	public void die(){
 		world.removeObject(this);
 		world.addKill();
-		world.spawnGhost();
 		
 		//15% chance to spawn a bomb on death of Ghost
 		int rand = (int)(Math.random()*100);

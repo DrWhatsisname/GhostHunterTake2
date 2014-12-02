@@ -56,7 +56,7 @@ public class World {
 		p = new Player(this, new PointF(500, 500), MainMenuActivity.difficulty);
 		this.gameObjects.add(p);
 
-		this.gameObjects.add(new Ghost(this, new PointF(0, 0), new PointF(100, 100), 50));
+		//this.gameObjects.add(new Ghost(this, new PointF(0, 0), new PointF(100, 100), 50));
 
 		this.gameObjects.add(new Wall(this, new RectF(400, 400, 500, 800)));
 		
@@ -307,8 +307,12 @@ public class World {
 	}
 	
 	public void spawnGhost(){
-		addObject(new Ghost(this, new PointF(0, 0), new PointF(100,
+		int x = (int)(Math.random()*1200);
+		int y = (int)(Math.random()*1100);
+		addObject(new Ghost(this, new PointF(x, y), new PointF(100,
 				100), 50));
+		
+		
 	}
 	
 	public void spawnBomb(PointF pos){
