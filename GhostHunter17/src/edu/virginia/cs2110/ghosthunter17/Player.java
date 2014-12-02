@@ -51,7 +51,7 @@ public class Player extends GameObject {
 		}
 
 		else {
-			p.setColor(Color.BLACK);
+			p.setColor(Color.RED);
 		}
 		c.save();
 
@@ -101,6 +101,10 @@ public class Player extends GameObject {
 		else{
 			Log.d("WORLD", "No bombs left");
 		}
+	}
+	
+	public int getLives(){
+		return lives;
 	}
 
 }

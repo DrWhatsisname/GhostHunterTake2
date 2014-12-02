@@ -20,6 +20,7 @@ public class World {
 	private static final float LIGHT_WIDTH = 120; // Degrees
 	private static final int SHADOW_COLOR = 0xff000000;
 	private static final float VIEW_CIRCLE = 200;
+	private static final int GHOST_TIME = 3;
 
 	private ArrayList<GameObject> gameObjects;
 	private ArrayList<GameObject> addQueue;
@@ -34,6 +35,9 @@ public class World {
 	private float batterySpawnTimer;
 	private float batteryLife;
 	private boolean light;
+	
+	private Paint gameOverPaint;
+	private boolean gameOver;
 
 	public World() {
 		this(new ArrayList<GameObject>());
@@ -53,6 +57,11 @@ public class World {
 		pausePaint.setTextSize(200);
 		pausePaint.setTextAlign(Align.CENTER);
 		
+		gameOver = false;
+		gameOverPaint = new Paint();
+		gameOverPaint.setTextSize(150);
+		gameOverPaint.setTextAlign(Align.CENTER);
+		
 		screenText = new Paint();
 		screenText.setTextSize(50);
 		screenText.setTextAlign(Align.CENTER);
@@ -62,7 +71,7 @@ public class World {
 		
 		light = true;
 		
-		ghostSpawnTimer = 5;
+		ghostSpawnTimer = GHOST_TIME;
 		batterySpawnTimer = 30;
 		batteryLife = 30;
 		kills = 0;
@@ -83,7 +92,7 @@ public class World {
 
 	public void update(float timePassed) {
 
-		if (!paused) {
+		if (!paused && !gameOver) {
 			
 			// Add/remove objects added/removed outside update
 			gameObjects.addAll(addQueue);
@@ -99,7 +108,7 @@ public class World {
 			
 			if (ghostSpawnTimer <= 0) {
 				spawnGhost();
-				ghostSpawnTimer = 5;
+				ghostSpawnTimer = GHOST_TIME;
 			}
 			
 			if (batterySpawnTimer <= 0) {
@@ -113,6 +122,10 @@ public class World {
 			}
 
 			checkCollision();
+			
+			if (p.getLives() <=0){
+				gameOver = true;
+			}
 		}
 	}
 
@@ -182,6 +195,15 @@ public class World {
 			pausePaint.setColor(0xFFFFFFFF);
 			c.drawText("Paused", c.getWidth() / 2, c.getHeight() / 2,
 					pausePaint);
+		}
+		
+		if (gameOver){
+			gameOverPaint.setColor(0x88111111);
+			c.drawRect(0, 0, c.getWidth(), c.getHeight(), gameOverPaint);
+			gameOverPaint.setColor(0xFFFFFFFF);
+			c.drawText("Game Over", c.getWidth() / 2, c.getHeight() / 2,
+					gameOverPaint);
+			
 		}
 	}
 
