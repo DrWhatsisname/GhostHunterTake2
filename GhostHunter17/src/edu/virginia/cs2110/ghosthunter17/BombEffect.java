@@ -60,7 +60,6 @@ public class BombEffect extends GameObject {
 			world.checkCollision();
 			explode = false;
 			animation = true;
-			
 		}
 	}
 
