@@ -54,9 +54,13 @@ public class BombEffect extends GameObject {
 			explode = true;
 			size = 160;
 			p.setColor(Color.RED);
+			ourSong = ResourceManager.loadSong(R.raw.bomb);
+			ourSong.reset();
+			ourSong.start();
 			world.checkCollision();
 			explode = false;
 			animation = true;
+			
 		}
 	}
 
