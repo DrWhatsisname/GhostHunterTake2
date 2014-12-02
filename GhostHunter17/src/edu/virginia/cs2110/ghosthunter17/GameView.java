@@ -41,6 +41,7 @@ public class GameView extends View {
 		
 		setLayerType(LAYER_TYPE_SOFTWARE, null);
 
+		ResourceManager.res = getResources();
 		// Set up GameObject world
 		w = new World();
 		
@@ -50,6 +51,8 @@ public class GameView extends View {
 		buttonPaint = new Paint();
 		buttonPaint.setTextAlign(Align.CENTER);
 		buttonPaint.setTextSize(40);
+		
+		
 	}
 
 	public void onPause() {

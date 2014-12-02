@@ -1,9 +1,11 @@
 package edu.virginia.cs2110.ghosthunter17;
 
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
+import android.graphics.Rect;
 import android.graphics.RectF;
 
 public class BombEffect extends GameObject {
@@ -13,6 +15,7 @@ public class BombEffect extends GameObject {
 	private boolean animation;
 	private Paint p;
 	private float time;
+	private Bitmap bmp;
 	
 	public BombEffect(World world, PointF pos) {
 		super(world,pos);
@@ -22,6 +25,7 @@ public class BombEffect extends GameObject {
 		explode = false;
 		animation = false;
 		time = 3;
+		bmp = ResourceManager.getImage(R.drawable.bomb);
 	}
 
 	@Override
@@ -54,7 +58,8 @@ public class BombEffect extends GameObject {
 	@Override
 	public void render(Canvas c) {
 		if (time<1){
-			c.drawCircle(pos.x, pos.y, size, p);
+//			c.drawCircle(pos.x, pos.y, size, p);
+			c.drawBitmap(bmp, new Rect(0,0,bmp.getWidth(),bmp.getHeight()), getColBounds(), p);
 		}
 		else{
 			c.drawCircle(pos.x + size, pos.y + size, size, p);

@@ -1,8 +1,10 @@
 package edu.virginia.cs2110.ghosthunter17;
 
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PointF;
+import android.graphics.Rect;
 import android.graphics.RectF;
 
 public class Ghost extends GameObject {
@@ -15,6 +17,7 @@ public class Ghost extends GameObject {
 	private float radius;
 	private float health;
 	private boolean light;
+	private Bitmap bmp;
 
 
 	
@@ -26,6 +29,7 @@ public class Ghost extends GameObject {
 		this.radius = radius;
 		this.health = 1;
 		this.light = false;
+		bmp = ResourceManager.getImage(R.drawable.ghastly_sprite);
 		
 		// Initialize a paint object to red
 		this.p = new Paint();
@@ -69,7 +73,8 @@ public class Ghost extends GameObject {
 	public void render(Canvas c) {
 		// Draw a rectangle at the box's position
 		p.setAlpha((int)(255*health));
-		c.drawCircle(pos.x + radius, pos.y + radius, radius, p);
+//		c.drawCircle(pos.x + radius, pos.y + radius, radius, p);
+		c.drawBitmap(bmp, new Rect(0,0,bmp.getWidth(), bmp.getHeight()), getColBounds(), p);
 	}
 
 	@Override

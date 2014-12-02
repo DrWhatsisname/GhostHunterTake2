@@ -1,9 +1,11 @@
 package edu.virginia.cs2110.ghosthunter17;
 
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.Log;
 
@@ -18,6 +20,7 @@ public class Player extends GameObject {
 	private Paint p;
 	private int lives;
 	private int numBombs;
+	private Bitmap bmp;
 	
 	public Player(World world, PointF pos, int difficulty) {
 		super(world, pos);
@@ -26,6 +29,7 @@ public class Player extends GameObject {
 		target = null;
 		lives = 3-difficulty;
 		numBombs = 0;
+		bmp = ResourceManager.getImage(R.drawable.flash_light);
 	}
 
 	@Override
@@ -55,9 +59,10 @@ public class Player extends GameObject {
 		}
 		c.save();
 
-		c.rotate(rot, pos.x, pos.y);
-		c.drawRect(pos.x - SIZE / 2, pos.y - SIZE / 2, pos.x + SIZE / 2, pos.y
-				+ SIZE / 2, p);
+		c.rotate(rot+45, pos.x, pos.y);
+//		c.drawRect(pos.x - SIZE / 2, pos.y - SIZE / 2, pos.x + SIZE / 2, pos.y
+//				+ SIZE / 2, p);
+		c.drawBitmap(bmp, new Rect(0,0,bmp.getWidth(), bmp.getHeight()), getColBounds(), p);
 		c.restore();
 	}
 
