@@ -366,7 +366,7 @@ public class World {
 	
 	public void showKills(Canvas c){
 		String text = "Kills: " + kills;
-		c.drawText(text, c.getWidth()-300, 50, screenText);
+		c.drawText(text, c.getWidth()-200, 50, screenText);
 	}
 	
 	public void showBombs(Canvas c){

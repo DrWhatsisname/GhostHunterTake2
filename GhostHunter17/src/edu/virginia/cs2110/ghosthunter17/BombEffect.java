@@ -52,8 +52,6 @@ public class BombEffect extends GameObject {
 		}
 		else if (time <1 && !animation){
 			explode = true;
-			ourSong = MediaPlayer.create(this, R.raw.bomb);
-			ourSong.start();
 			size = 160;
 			p.setColor(Color.RED);
 			world.checkCollision();
