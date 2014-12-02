@@ -21,7 +21,7 @@ public class BombEffect extends GameObject {
 		size = 40;
 		explode = false;
 		animation = false;
-		time = 3;
+		time = 2;
 	}
 
 	@Override

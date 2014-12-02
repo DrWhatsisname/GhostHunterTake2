@@ -73,7 +73,7 @@ public class World {
 
 		ghostSpawnReset = 5;
 		ghostSpawnTimer = 5;
-		batterySpawnTimer = 30;
+		batterySpawnTimer = 25;
 		batteryLife = 30;
 		kills = 0;
 		p = new Player(this, new PointF(500, 500), MainMenuActivity.difficulty);
@@ -118,7 +118,7 @@ public class World {
 			
 			if (batterySpawnTimer <= 0) {
 				spawnBattery();
-				batterySpawnTimer = 30;
+				batterySpawnTimer = 25;
 			}
 			
 			// Update GameObjects
@@ -373,11 +373,17 @@ public class World {
 	}
 	
 	public void spawnGhost(){
-		int x = (int)(Math.random()*1200);
-		int y = (int)(Math.random()*1100);
-		double theta = Math.random()*Math.PI*2;
-		addObject(new Ghost(this, new PointF(x, y), new PointF(100 * (float)Math.cos(theta),
-				100 * (float)Math.sin(theta)), 50));
+		RectF safeZone = new RectF(p.pos.x -Player.SIZE, p.pos.y -Player.SIZE, p.pos.x + Player.SIZE, p.pos.y + Player.SIZE);
+		Ghost g;
+		do{
+			int x = (int)(Math.random()*1200);
+			int y = (int)(Math.random()*1100);
+			double theta = Math.random()*Math.PI*2;
+			g = new Ghost(this, new PointF(x, y), new PointF(100 * (float)Math.cos(theta),
+					100 * (float)Math.sin(theta)), 50);
+		}
+		while(g.getColBounds().intersect(safeZone));
+		addObject(g);
 	}
 	
 	public void spawnBomb(PointF pos){
