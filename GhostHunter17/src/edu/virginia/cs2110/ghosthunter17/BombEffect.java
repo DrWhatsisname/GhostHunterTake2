@@ -10,6 +10,7 @@ public class BombEffect extends GameObject {
 	
 	private float size; // Pixels
 	private boolean explode;
+	private boolean animation;
 	private Paint p;
 	private float time;
 	
@@ -19,11 +20,15 @@ public class BombEffect extends GameObject {
 		p.setColor(Color.BLUE);
 		size = 40;
 		explode = false;
+		animation = false;
 		time = 3;
 	}
 
 	@Override
 	public RectF getColBounds() {
+		if (time<1){
+			return new RectF(this.pos.x-size, this.pos.y-size, this.pos.x+size, this.pos.y+size);
+		}
 		return new RectF(this.pos.x, this.pos.y,
 				this.pos.x + size, this.pos.y + size);
 	}
@@ -36,12 +41,13 @@ public class BombEffect extends GameObject {
 		if (time<=0){
 			world.removeObject(this);
 		}
-		else if (time <1){
+		else if (time <1 && !animation){
 			explode = true;
 			size = 160;
 			p.setColor(Color.RED);
 			world.checkCollision();
 			explode = false;
+			animation = true;
 		}
 	}
 
