@@ -8,6 +8,14 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
 
+/*
+ * T103-17
+ * Henry Conklin, hwc5gj
+ * Wylie Wang, ww5ts	
+ * Cornelius Nelson, cn3dh	
+ * Ryan Montgomery, rmm4wf
+ */
+
 public class Wall extends GameObject {
 
 	private static Paint wallPaint;

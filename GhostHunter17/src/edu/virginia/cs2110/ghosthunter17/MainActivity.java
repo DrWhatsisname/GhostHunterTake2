@@ -7,6 +7,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+/*
+ * T103-17
+ * Henry Conklin, hwc5gj
+ * Wylie Wang, ww5ts	
+ * Cornelius Nelson, cn3dh	
+ * Ryan Montgomery, rmm4wf
+ */
+
 public class MainActivity extends Activity {
 
 	private GameView game;

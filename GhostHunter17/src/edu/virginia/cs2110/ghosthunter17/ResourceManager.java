@@ -7,6 +7,14 @@ import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.util.SparseArray;
 
+/*
+ * T103-17
+ * Henry Conklin, hwc5gj
+ * Wylie Wang, ww5ts	
+ * Cornelius Nelson, cn3dh	
+ * Ryan Montgomery, rmm4wf
+ */
+
 public class ResourceManager {
 	private static SparseArray<Bitmap> images;
 	private static SparseArray<MediaPlayer> sounds;

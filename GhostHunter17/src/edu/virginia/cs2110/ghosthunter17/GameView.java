@@ -12,6 +12,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.MotionEvent.PointerCoords;
 
+/*
+ * T103-17
+ * Henry Conklin, hwc5gj
+ * Wylie Wang, ww5ts	
+ * Cornelius Nelson, cn3dh	
+ * Ryan Montgomery, rmm4wf
+ */
+
 public class GameView extends View {
 
 	private long lastTime;

@@ -4,6 +4,14 @@ import java.util.List;
 
 import android.graphics.PointF;
 
+/*
+ * T103-17
+ * Henry Conklin, hwc5gj
+ * Wylie Wang, ww5ts	
+ * Cornelius Nelson, cn3dh	
+ * Ryan Montgomery, rmm4wf
+ */
+
 public class Segment {
 
 	public PointF p1, p2;

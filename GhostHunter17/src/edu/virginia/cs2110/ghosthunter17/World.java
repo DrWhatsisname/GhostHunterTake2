@@ -15,6 +15,13 @@ import android.graphics.Region;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.MotionEvent.PointerCoords;
+/*
+ * T103-17
+ * Henry Conklin, hwc5gj
+ * Wylie Wang, ww5ts	
+ * Cornelius Nelson, cn3dh	
+ * Ryan Montgomery, rmm4wf
+ */
 
 public class World {
 	private static final float LIGHT_WIDTH = 120; // Degrees

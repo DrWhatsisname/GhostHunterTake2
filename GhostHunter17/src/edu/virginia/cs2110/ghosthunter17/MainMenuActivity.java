@@ -6,7 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.SeekBar;
 
-
+/*
+ * T103-17
+ * Henry Conklin, hwc5gj
+ * Wylie Wang, ww5ts	
+ * Cornelius Nelson, cn3dh	
+ * Ryan Montgomery, rmm4wf
+ */
 public class MainMenuActivity extends Activity {
 	
 	public static int difficulty = 0;

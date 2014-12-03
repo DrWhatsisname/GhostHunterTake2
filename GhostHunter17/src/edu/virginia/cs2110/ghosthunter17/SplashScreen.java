@@ -7,6 +7,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 
+/*
+ * T103-17
+ * Henry Conklin, hwc5gj
+ * Wylie Wang, ww5ts	
+ * Cornelius Nelson, cn3dh	
+ * Ryan Montgomery, rmm4wf
+ */
+
 public class SplashScreen extends Activity {
 
 	private static final long SPLASH_TIME = 10000;

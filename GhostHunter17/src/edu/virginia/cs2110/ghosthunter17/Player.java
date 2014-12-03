@@ -9,6 +9,14 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.Log;
 
+/*
+ * T103-17
+ * Henry Conklin, hwc5gj
+ * Wylie Wang, ww5ts	
+ * Cornelius Nelson, cn3dh	
+ * Ryan Montgomery, rmm4wf
+ */
+
 public class Player extends GameObject {
 
 	private static final float V = 500; // Pixels per second
