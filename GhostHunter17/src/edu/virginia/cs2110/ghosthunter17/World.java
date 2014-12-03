@@ -87,7 +87,7 @@ public class World {
 		this.gameObjects.add(new Wall(this, new RectF(670, 590, 800, 610)));	
 	
 		//Remove this line later
-		testCode();
+		//testCode();
 
 	}
 
@@ -192,6 +192,7 @@ public class World {
 		}
 			
 		showKills(c);
+		showLives(c);
 		showBombs(c);
 		
 		if (paused) {
@@ -366,12 +367,16 @@ public class World {
 	
 	public void showKills(Canvas c){
 		String text = "Kills: " + kills;
-		c.drawText(text, c.getWidth()-200, 50, screenText);
+		c.drawText(text, c.getWidth()-175, 50, screenText);
 	}
 	
+	public void showLives(Canvas c){
+		String text = "Lives: " +p.getLives();
+		c.drawText(text,c.getWidth()-400,50,screenText);
+	}
 	public void showBombs(Canvas c){
 		String text = "Bombs: " + p.getNumBombs();
-		c.drawText(text, 150, 50, screenText);
+		c.drawText(text, 125, 50, screenText);
 	}
 	
 	public void spawnGhost(){
